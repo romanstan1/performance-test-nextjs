@@ -1,5 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet, injectGlobal } from 'styled-components'
+import {lightgrey, mediumgrey, darkgrey, backgroundgrey, offwhite} from '../colors'
 
 export default class MyDocument extends Document {
   static getInitialProps ({ renderPage }) {
@@ -14,7 +15,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <title>My page</title>
-          <meta charset="utf-8"/>
+          <meta charSet="utf-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <link href="https://fonts.googleapis.com/css?family=Raleway:400" rel="stylesheet"/>
           {this.props.styleTags}
@@ -40,7 +41,7 @@ injectGlobal`
     background-color: #f4f4f4;
   }
   body {
-    ${'' /* background-color: ${backgroundgrey}; */}
+    background-color: ${backgroundgrey};
     max-width: 510px;
   }
   a {
@@ -55,7 +56,7 @@ injectGlobal`
       content:'';
       width: 100%;
       display: block;
-      ${'' /* border-bottom: 1px solid ${lightgrey}; */}
+      border-bottom: 1px solid ${lightgrey};
     }
   }
 `
