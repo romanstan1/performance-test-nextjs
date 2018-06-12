@@ -12,6 +12,7 @@
     "babel-plugin-import-static-files": "^1.0.4",
     "babel-plugin-styled-components": "1.5.1",
     "next": "latest",
+    "paper-ripple": "^0.3.0",
     "react": "16.4.0",
     "react-dom": "16.4.0",
     "react-router-dom": "^4.3.1",

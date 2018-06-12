@@ -8,14 +8,12 @@ import homeTwo from './Home/assets/home200.jpg'
 import MenuItem from '@material-ui/core/MenuItem';
 import Link from 'next/link'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, offwhite} from '../colors'
+// import Router from 'next/router'
 
 const StyledHome = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  .lazyload-placeholder {
-    background: ${mediumgrey};
-  }
   .imageWrap {
     position: relative;
     font-size: 0;
