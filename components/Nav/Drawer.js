@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react';
 import Link from 'next/link'
-import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
@@ -56,7 +55,6 @@ const StyledButtonBase = styled(ButtonBase)`
   outline: none;
   display: block !important;
   border-radius: 50% !important;
-  cursor: not-allowed;
   &:hover {
     background: ${lightgrey} !important;
   }
