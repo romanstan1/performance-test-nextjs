@@ -7,6 +7,8 @@ import homeTwo from './Home/assets/home200new.jpg'
 import Link from 'next/link'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, offwhite} from '../colors'
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Image from '../components/Image';
+
 
 const StyledButtonBase = styled(ButtonBase)`
   position: absolute !important;
@@ -38,15 +40,21 @@ const StyledHome = styled.div`
   .imageWrap {
     position: relative;
     font-size: 0;
-    min-width: 100%;
+    width: 100vw;
+    height: 82.758620918vw;
     display: block;
-    max-width:725px;
-    max-height:600px;
+    max-width:510px;
+    max-height:422.06896551px;
     img {
       min-height: 200px;
       display: block;
       width: 100%;
       height: auto;
+      transition: opacity 0.3s;
+      opacity: 1 !important;
+      &.image-loaded {
+        opacity: 1 !important;
+      }
     }
   }
 `
@@ -55,16 +63,18 @@ export default () =>
   <StyledHome>
     <Nav/>
     <div className='imageWrap'>
-      <img src={homeOne} alt=""/>
+      <img src={homeOne} alt="" style={{background: '#0b6281'}}/>
+      {/* <Image src={homeOne} className='image-loaded'/> */}
       <Link href="/glasses">
         <StyledButtonBase>Shop Glasses</StyledButtonBase>
       </Link>
     </div>
     <div className='imageWrap'>
-      <img src={homeTwo} alt=""/>
+      <img src={homeTwo} alt="" style={{background: '#010101'}}/>
+      {/* <Image src={homeTwo} className='image-loaded'/> */}
       <Link href="/sunglasses">
         <StyledButtonBase>Shop Sunglasses</StyledButtonBase>
       </Link>
     </div>
-    {/* <InfoBox/> */}
+    <InfoBox/>
   </StyledHome>
