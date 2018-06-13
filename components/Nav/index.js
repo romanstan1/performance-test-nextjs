@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import Drawer from './Drawer'
+import {connect} from 'react-redux'
 
 const Header = styled.header`
   background: #fff;
@@ -8,7 +9,8 @@ const Header = styled.header`
   width: 100%;
 `;
 
-export default class SimpleMenu extends React.Component {
+
+class Nav extends React.Component {
   state = {
     anchorEl: null,
     route: 'Home'
@@ -31,3 +33,7 @@ export default class SimpleMenu extends React.Component {
     )
   }
 }
+
+// basket: state.data.basket
+export default connect(state => ({
+}))(Nav)

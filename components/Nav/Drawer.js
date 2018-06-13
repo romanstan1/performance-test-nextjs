@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
-import Link from 'next/link'
+import { Link, Router } from '../../routes'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
@@ -25,6 +26,27 @@ const ShoppingBasket = () =>
 const StyledList = styled.div`
   width: 250px;
 `
+const NotificationBubble = styled.div`
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 11px;
+  color: white;
+  right: 0px;
+  font-family: sans-serif;
+  top: 0px;
+  border: 2px solid white;
+  border-color: inherit !important;
+  background: ${electricblue};
+  border-radius: 50%;
+  &.active {
+    display: none;
+  }
+`
 const StyledMenuItem = styled(MenuItem)`
   font-family: 'Raleway', sans-serif !important;
   font-size: 14px !important;
@@ -36,6 +58,7 @@ const Heading = styled.h2`
   font-size: 18px;
   font-weight: 400;
   line-height: 48px;
+  cursor: pointer;
 `;
 
 const Drawer = styled.div`
@@ -50,12 +73,14 @@ const StyledButtonBase = styled(ButtonBase)`
   width: 48px !important;
   height: 48px;
   background: white !important;
-  border: 0px;
   padding-top: 1px !important;
   outline: none;
   display: block !important;
   border-radius: 50% !important;
+  position: relative;
+  border: 0px solid white !important;
   &:hover {
+    border: 0px solid ${lightgrey} !important;
     background: ${lightgrey} !important;
   }
 `;
@@ -64,15 +89,15 @@ const SideList = () =>
   <StyledList>
     <br/><br/><br/>
     <Divider />
-    <Link href="">
+    <Link route="/">
       <StyledMenuItem>Home</StyledMenuItem>
     </Link>
     <Divider />
-    <Link href="/glasses">
+    <Link route="/glasses">
       <StyledMenuItem>Glasses</StyledMenuItem>
     </Link>
     <Divider />
-    <Link href="/sunglasses">
+    <Link route="/sunglasses">
       <StyledMenuItem>Sunglasses</StyledMenuItem>
     </Link>
     <Divider />
@@ -82,7 +107,7 @@ const SideList = () =>
     <Divider />
   </StyledList>
 
-export default class SwipeableTemporaryDrawer extends React.Component {
+class SwipeableTemporaryDrawer extends React.Component {
   state = {
     left: false,
   };
@@ -99,15 +124,19 @@ export default class SwipeableTemporaryDrawer extends React.Component {
             <MenuIcon/>
           </StyledButtonBase>
 
-          <Link href="">
+          <Link route="/">
             <Heading>The Spectacle Store</Heading>
           </Link>
 
-          <Link href="/basket">
+          <Link route="/basket">
             <StyledButtonBase>
               <ShoppingBasket/>
+              <NotificationBubble className={this.props.basket.length? '': 'active'}>
+                {this.props.basket.length}
+              </NotificationBubble>
             </StyledButtonBase>
           </Link>
+
         </Drawer>
         <SwipeableDrawer
           open={this.state.left}
@@ -127,3 +156,8 @@ export default class SwipeableTemporaryDrawer extends React.Component {
     )
   }
 }
+
+
+export default connect(state => ({
+  basket: state.basket
+}))(SwipeableTemporaryDrawer)
