@@ -8,30 +8,62 @@ export const StyledPLP = styled.div`
   align-items: center;
   text-align: center;
   background: white;
+  padding-bottom: 20px;
   div.landing-image {
-    max-height: 330px;
+    font-size: 0px;
     overflow: hidden;
-    min-width: 100%;
-    background: ${darkgrey};
     img {
-      min-height: 200px;
-      max-width: 100%;
-      height:auto;
+      background: ${darkgrey};
+      width: 100%;
+      height: 64.705882352vw;
+      max-height: 330px;
     }
   }
-  div.heading {
-    margin: 10px;
-    padding-top: 30px;
-    font-weight: 600;
-    font-size: 19px;
+  div.filters {
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    width: 65%;
+    min-width: 245px;
+    margin: 20px 0;
+    div {
+      cursor:not-allowed;
+      padding: 8px 15px;
+      font-size: 13px;
+      color: ${mediumgrey};
+      border: 1px solid ${lightgrey};
+    }
   }
-  div.subheading {
-    margin: 10px;
-    font-size: 15px;
-    padding: 0 10%;
+  div.show-more {
+    cursor: pointer;
+    padding: 8px 26px;
+    font-size: 13px;
+    color: ${mediumgrey};
+    border: 1px solid ${lightgrey};
+    margin: 20px 0;
+    &:hover {
+      color: white;
+      border: 1px solid ${darkgrey};
+      background: ${darkgrey}
+    }
   }
 }
 `
-export const ImageBlock = styled.div`
-  
+
+export const StyledImageBlock = styled.div`
+  width: 100%;
+  cursor: pointer;
+  img {
+    width: 80%;
+    height: 45.019607843vw;
+    max-height: 229.6px;
+  }
+  h2 {
+    transform: translateY(-35px);
+    font-size: 15px;
+  }
+  h3 {
+    transform: translateY(-30px);
+    font-size: 14px;
+  }
 `

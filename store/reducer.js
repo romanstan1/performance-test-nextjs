@@ -14,7 +14,9 @@ const initialState = {
       image: "c2bb2b59d1355c17a00630b0c1810d59.jpg",
       price: "89"
     }
-  ]
+  ],
+  data:[],
+  page: 1
 }
 
 export default (state = initialState, action) => {
@@ -29,6 +31,20 @@ export default (state = initialState, action) => {
       return {
         ...state,
         basket: state.basket.filter(item => item.id !== action.payload)
+      }
+    }
+    case "ADD_MORE_LISTINGS": {
+      return {
+        ...state,
+        data: [].concat(state.data, action.payload),
+        page: state.page + 1
+      }
+    }
+    case "ADD_INITIAL_PROPS": {
+      return {
+        ...state,
+        data: action.payload,
+        page: 1
       }
     }
     default:
