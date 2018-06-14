@@ -7,6 +7,64 @@ import Nav from '../../components/Nav'
 import Footer from '../../components/Footer'
 import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
+import Radio from '@material-ui/core/Radio';
+
+
+
+
+class Carousel extends Component {
+  state = {
+    level: 0
+  }
+  handleClick = (e) => {
+    console.log('click!: ', e.target.value)
+    // this.setState({level: this.state.level + 1})
+  }
+
+  render() {
+    const {images, brand, price} = this.props
+    return (
+      <StyledImageBlock>
+        <div className='eachItem' onClick={this.handleClick} >
+          {
+            images.map(item =>
+              <img src={'static/all-plp/' + item} alt="" key={item}/>
+            )
+          }
+        </div>
+
+        <div className='radios'>
+          {
+            images.map((item, i) =>
+              <Radio
+                checked={this.state.level === i}
+                onChange={this.handleClick}
+                value={i}
+                name="radio-button-demo"
+                color="default"
+                // classes={{ root: 'black'}}
+              />
+            )
+          }
+        </div>
+
+        <h2>{brand}</h2>
+        <h3>£{price}</h3>
+      </StyledImageBlock>
+    )
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 class ProductListing extends Component {
 
@@ -19,19 +77,15 @@ class ProductListing extends Component {
       payload: Object.values(data)
     })
     return {route}
-    // return {route, data: Object.values(data)}
   }
 
   async fetchMoreItems(start, end) {
-
     const res = await fetch(`https://performance-test-next.firebaseio.com/${this.props.route}.json?orderBy="$key"&startAt="${start}"&endAt="${end}"`)
     const data = await res.json()
-
     this.props.dispatch({
       type: 'ADD_MORE_LISTINGS',
       payload: Object.values(data)
     })
-
   }
 
   render() {
@@ -54,11 +108,7 @@ class ProductListing extends Component {
             data.map(item =>
               <LazyLoad height={300} offset={0} key={item.id}>
                 <Link route={`/${route}/${item.id}-${item.brand}-${item.price}`}>
-                  <StyledImageBlock>
-                    <img src={'static/all-plp/' + item.images[0]} alt=""/>
-                    <h2>{item.brand}</h2>
-                    <h3>£{item.price}</h3>
-                  </StyledImageBlock>
+                  <Carousel id={item.id} images={item.images} brand={item.brand} price={item.price}/>
                 </Link>
               </LazyLoad>
             )
@@ -78,32 +128,3 @@ export default connect(state => ({
   data: state.data,
   page: state.page
 }))(ProductListing)
-
-
-
-
-
-// {/* <div className="heading">{content.heading} </div>
-// <div className="subheading">{content.subheading} </div> */}
-// {/* <Divider style={{width:'100%'}} /> */}
-// // statepage this.state.page
-// // data
-// /* {
-// content.assets.map((img, i) => {
-// const brand = brandNames[i%9]
-// const price = prices[i%9]
-// return (
-// <Link to={`/pdp/${brand}-${price}-${img.slice(1, -4)}`} key={img}>
-// // <LazyLoad height={300} offset={400}>
-// <div className='image-wrap'>
-// <img src={img} alt=""/>
-// <div className="text">
-// <div className="name">{brand}</div>
-// <div className="price">£{price}</div>
-// </div>
-// </div>
-// </LazyLoad>
-// </Link>
-// )
-// })
-// } */

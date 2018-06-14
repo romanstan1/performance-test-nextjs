@@ -51,19 +51,45 @@ export const StyledPLP = styled.div`
 `
 
 export const StyledImageBlock = styled.div`
-  width: 100%;
   cursor: pointer;
-  img {
-    width: 80%;
-    height: 45.019607843vw;
-    max-height: 229.6px;
+  display: block;
+
+
+  div.eachItem {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+    img {
+      margin: 0 10%;
+      display: inline-block;
+      width: 80%;
+      height: 45.019607843vw;
+      max-height: 229.6px;
+    }
+  }
+  div.radios {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ${'' /* .black svg {
+      fill: black;
+    }
+    .whiskey svg {
+      fill: #877882;
+    }
+    .midnight svg {
+      fill: #042666;
+    } */}
   }
   h2 {
-    transform: translateY(-35px);
+    transform: translateY(-15px);
     font-size: 15px;
   }
   h3 {
-    transform: translateY(-30px);
+    transform: translateY(-10px);
     font-size: 14px;
   }
 `
