@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {addToBasket} from './actions'
 import Footer from '../../components/Footer'
 import Nav from '../../components/Nav'
+import Carousel from '../../components/Carousel'
 
 // const recommendedBrands =  [
 //   'Specsavers',
@@ -32,14 +33,14 @@ class ProductDisplay extends Component {
   //   }
   // }
   state = {
-    color: 'jet black eclipse',
     added: false
   }
 
   static async getInitialProps ({query}) {
     const route = query['0']
-    const params = query.slug.split('-')
-    return {route, id: params[0], brand: params[1], price: params[2]}
+    // const params = query.slug.split('-')
+    // return {route, id: params[0], brand: params[1], price: params[2]}
+    return {route}
   }
 
   handleChange = e => {
@@ -47,7 +48,7 @@ class ProductDisplay extends Component {
   }
 
   handleAddToBasket = () => {
-    const {brand, price, image, color} = this.state
+    const {brand, price, image} = this.state
     this.props.dispatch(addToBasket(brand, price, image, color))
     this.setState({added: true})
   }
@@ -67,7 +68,10 @@ class ProductDisplay extends Component {
           </div>
         </div>
 
-        <div className='radios'>
+
+        {/* <Carousel id={id} images={images} brand={item.brand} price={item.price}/> */}
+
+        {/* <div className='radios'>
           <Radio
             checked={this.state.color === 'jet black eclipse'}
             onChange={this.handleChange}
@@ -92,8 +96,8 @@ class ProductDisplay extends Component {
             color='default'
             classes={{ root: 'midnight'}}
           />
-        </div>
-        <div className='color'>{this.state.color}</div>
+        </div> */}
+        {/* <div className='color'>{this.state.color}</div> */}
 
         <br/><br/>
         <CTAButton>

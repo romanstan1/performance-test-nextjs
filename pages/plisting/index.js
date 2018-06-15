@@ -7,71 +7,14 @@ import Nav from '../../components/Nav'
 import Footer from '../../components/Footer'
 import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
-import Radio from '@material-ui/core/Radio';
-
-
-class Carousel extends Component {
-  state = {
-    level: '0'
-  }
-  handleClick = (e) => {
-    this.setState({level: e.target.value})
-  }
-
-  render() {
-    const {images, brand, price} = this.props
-    const {level} = this.state
-    return (
-      <StyledImageBlock>
-        <div className='eachItem'>
-          {
-            images.map(item =>
-              <img
-                style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
-                src={'static/all-plp/' + item} alt="" key={item}
-              />
-            )
-          }
-        </div>
-
-        <div className='radios'>
-          {
-            images.map((item, i) =>
-              <Radio
-                key={item + i}
-                checked={level === i.toString()}
-                onChange={this.handleClick}
-                value={`${i}`}
-                name="radio-button-demo"
-                color="default"
-              />
-            )
-          }
-        </div>
-
-        <h2>{brand}</h2>
-        <h3>£{price}</h3>
-      </StyledImageBlock>
-    )
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
+import Carousel from '../../components/Carousel'
 
 class ProductListing extends Component {
 
   static async getInitialProps ({query, reduxStore}) {
     const route = query['0']
-    const res = await fetch(`https://performance-test-next.firebaseio.com/${route}.json?orderBy="$key"&endAt="19"`)
+    // const res = await fetch(`https://performance-test-next.firebaseio.com/${route}.json?orderBy="$key"&endAt="19"`)
+    const res = await fetch(`https://performance-test-next.firebaseio.com/${route}.json?orderBy="$key"`)
     const data = await res.json()
     reduxStore.dispatch({
       type: 'ADD_INITIAL_PROPS',
@@ -99,25 +42,29 @@ class ProductListing extends Component {
             <img src={`/static/landing-plp/${route}.jpg`} alt=""/>
           </div>
           <br/><br/>
-          <h3>All {route}</h3>
-          <h2>Showing {(page)*20} of {route === 'sunglasses'? 85 : 615}</h2>
+          <h2>All {route}</h2>
+          <h3>Showing {(page)*20} of {route === 'sunglasses'? 85 : 615}</h3>
           <div className='filters'>
             <div>Filter frames</div>
             <div>Search frames</div>
           </div>
           {
-            data.map(item =>
-              <LazyLoad height={300} offset={0} key={item.id}>
-                <Link route={`/${route}/${item.id}-${item.brand}-${item.price}`}>
+            data.map((item, i) =>
+              <Link route={`/${route}/${item.id}-${item.brand}-${item.price}`} key={item.id}>
+                <LazyLoad height={300} offset={0}>
                   <Carousel id={item.id} images={item.images} brand={item.brand} price={item.price}/>
-                </Link>
-              </LazyLoad>
+                  <div className='view-it'>
+                    <span>ID:<span> {item.id} </span></span>
+                    <span>Index: <span>{i}</span></span>
+                  </div>
+                </LazyLoad>
+              </Link>
             )
           }
-          <div className='show-more'
+          {/* <div className='show-more'
             onClick={() => this.fetchMoreItems(page*20, ((page+1)*20)-1) }>
             Show more
-          </div>
+          </div> */}
           </StyledPLP>
           <Footer/>
       </Fragment>

@@ -19,14 +19,26 @@ export const StyledPLP = styled.div`
       max-height: 330px;
     }
   }
+  > h2 {
+    color: ${darkgrey};
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  > h3 {
+    margin: 10px 0;
+    color: ${mediumgrey};
+    font-size: 13px;
+    font-weight: 400;
+  }
   div.filters {
-    display: flex;
-    justify-content:space-around;
-    align-items: center;
+    display: block;
     width: 65%;
     min-width: 245px;
     margin: 20px 0;
     div {
+      margin: 0 5px;
+      display: inline-block;
       cursor:not-allowed;
       padding: 8px 15px;
       font-size: 13px;
@@ -47,45 +59,23 @@ export const StyledPLP = styled.div`
       background: ${darkgrey}
     }
   }
+  div.view-it {
+    width: 510px;
+    border-bottom: 3px solid blue;
+    margin-bottom: 30px;
+    > span {
+      padding: 20px 30px;
+      display:inline-block;
+      font-family: sans-serif;
+      color: grey;
+      font-size: 22px;
+      font-weight: 700;
+      span {
+        padding-left: 10px;
+        font-family: sans-serif;
+        color: black
+      }
+    }
+  }
 }
-`
-
-export const StyledImageBlock = styled.div`
-  display: block;
-
-  div.eachItem {
-    overflow-x:hidden;
-    overflow-y: hidden;
-    white-space: nowrap;
-    position: relative;
-    width: 100%;
-    img {
-      transition: 0.2s ease;
-      margin: 0 10%;
-      display: inline-block;
-      width: 80%;
-      height: 45.019607843vw;
-      max-height: 229.6px;
-    }
-  }
-  div.radios {
-    margin: 0px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(-26px);
-    svg {
-      width: 22px;
-      height: 22px;
-      fill: ${mediumgrey};
-    }
-  }
-  h2 {
-    transform: translateY(-15px);
-    font-size: 15px;
-  }
-  h3 {
-    transform: translateY(-10px);
-    font-size: 14px;
-  }
 `

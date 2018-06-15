@@ -2,16 +2,14 @@ const initialState = {
   basket: [
     {
       brand: "The Spectacle Store",
-      color: "jet black elclipse",
-      id: "111105c53924-9531-4da9-829f-13985b119ecc",
-      image: "c2bb2b59d1355c17a00630b0c1810d59.jpg",
+      id: "25240283",
+      image: "25240283-front-940x529.jpg",
       price: "79"
     },
     {
-      brand: "The Spectacle Store",
-      color: "midnight blue",
-      id: "DDD05c53924-9531-4da9-829f-13985b119ecc",
-      image: "c2bb2b59d1355c17a00630b0c1810d59.jpg",
+      brand: "Kylie Minogue",
+      id: "25240313",
+      image: "25240313-front-940x529.jpg",
       price: "89"
     }
   ],

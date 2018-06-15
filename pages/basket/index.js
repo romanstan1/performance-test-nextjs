@@ -98,10 +98,9 @@ const Basket = ({basket, dispatch}) => {
       {
         basket.map((item, i)=>
         <div className='item' key={i}>
-          <img src={'/'+ item.image} alt=""/>
+          <img src={'/static/all-plp/'+ item.image} alt=""/>
           <div className='text'>
             <h4>{item.brand}</h4>
-            <p>{item.color}</p>
           </div>
           <div className="price">£{item.price}</div>
           <div className='remove'>
