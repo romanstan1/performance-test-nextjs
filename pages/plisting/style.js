@@ -51,17 +51,16 @@ export const StyledPLP = styled.div`
 `
 
 export const StyledImageBlock = styled.div`
-  cursor: pointer;
   display: block;
 
-
   div.eachItem {
-    overflow-x: scroll;
+    overflow-x:hidden;
     overflow-y: hidden;
     white-space: nowrap;
     position: relative;
     width: 100%;
     img {
+      transition: 0.2s ease;
       margin: 0 10%;
       display: inline-block;
       width: 80%;
@@ -70,19 +69,16 @@ export const StyledImageBlock = styled.div`
     }
   }
   div.radios {
-    margin: 20px 0;
+    margin: 0px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    ${'' /* .black svg {
-      fill: black;
+    transform: translateY(-26px);
+    svg {
+      width: 22px;
+      height: 22px;
+      fill: ${mediumgrey};
     }
-    .whiskey svg {
-      fill: #877882;
-    }
-    .midnight svg {
-      fill: #042666;
-    } */}
   }
   h2 {
     transform: translateY(-15px);

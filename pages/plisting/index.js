@@ -10,25 +10,26 @@ import {connect} from 'react-redux'
 import Radio from '@material-ui/core/Radio';
 
 
-
-
 class Carousel extends Component {
   state = {
-    level: 0
+    level: '0'
   }
   handleClick = (e) => {
-    console.log('click!: ', e.target.value)
-    // this.setState({level: this.state.level + 1})
+    this.setState({level: e.target.value})
   }
 
   render() {
     const {images, brand, price} = this.props
+    const {level} = this.state
     return (
       <StyledImageBlock>
-        <div className='eachItem' onClick={this.handleClick} >
+        <div className='eachItem'>
           {
             images.map(item =>
-              <img src={'static/all-plp/' + item} alt="" key={item}/>
+              <img
+                style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
+                src={'static/all-plp/' + item} alt="" key={item}
+              />
             )
           }
         </div>
@@ -37,12 +38,12 @@ class Carousel extends Component {
           {
             images.map((item, i) =>
               <Radio
-                checked={this.state.level === i}
+                key={item + i}
+                checked={level === i.toString()}
                 onChange={this.handleClick}
-                value={i}
+                value={`${i}`}
                 name="radio-button-demo"
                 color="default"
-                // classes={{ root: 'black'}}
               />
             )
           }
