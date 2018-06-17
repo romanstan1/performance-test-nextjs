@@ -14,7 +14,7 @@ class ProductListing extends Component {
   static async getInitialProps ({query, reduxStore}) {
     const route = query['0']
     // const res = await fetch(`https://performance-test-next.firebaseio.com/${route}.json?orderBy="$key"&endAt="19"`)
-    const res = await fetch(`https://performance-test-next.firebaseio.com/${route}.json?orderBy="$key"`)
+    const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="$key"`)
     const data = await res.json()
     reduxStore.dispatch({
       type: 'ADD_INITIAL_PROPS',
@@ -43,7 +43,7 @@ class ProductListing extends Component {
           </div>
           <br/><br/>
           <h2>All {route}</h2>
-          <h3>Showing {(page)*20} of {route === 'sunglasses'? 85 : 615}</h3>
+          {/* <h3>Showing {(page)*20} of {route === 'sunglasses'? 85 : 615}</h3> */}
           <div className='filters'>
             <div>Filter frames</div>
             <div>Search frames</div>
