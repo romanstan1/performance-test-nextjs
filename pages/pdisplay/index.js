@@ -8,6 +8,7 @@ import {addToBasket} from './actions'
 import Footer from '../../components/Footer'
 import Nav from '../../components/Nav'
 import Carousel from '../../components/Carousel'
+import "isomorphic-fetch";
 
 // const recommendedBrands =  [
 //   'Specsavers',
@@ -20,27 +21,25 @@ import Carousel from '../../components/Carousel'
 //   '89'
 // ]
 
+async function fetchItem(route, id) {
+  console.log(route, id)
+  const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="id"&equalTo="${id}"`)
+  const data = await res.json()
+  return Object.values(data)[0]
+}
+
 class ProductDisplay extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   // const routeDetails = props.match.params.id.split('-')
-  //   this.state = {
-  //     // brand: routeDetails[0],
-  //     // price: routeDetails[1],
-  //     // image: `${routeDetails[2]}.jpg`,
-  //     color: 'jet black elclipse',
-  //     added: false
-  //   }
-  // }
+
   state = {
     added: false
   }
 
   static async getInitialProps ({query}) {
     const route = query['0']
-    // const params = query.slug.split('-')
-    // return {route, id: params[0], brand: params[1], price: params[2]}
-    return {route}
+    const id = query.slug
+    console.log('query', query)
+    const product = await fetchItem(route, id)
+    return {route, product}
   }
 
   handleChange = e => {
@@ -48,57 +47,18 @@ class ProductDisplay extends Component {
   }
 
   handleAddToBasket = () => {
-    const {brand, price, image} = this.state
-    this.props.dispatch(addToBasket(brand, price, image, color))
-    this.setState({added: true})
+    const {product, dispatch} = this.props
+    dispatch(addToBasket(product))
+    // this.setState({added: true})
   }
 
   render() {
     const {added} = this.state
-    const {id, brand, price} = this.props
+    const {urls, id, brand, price} = this.props.product
     return (
       <Style>
         <Nav/>
-
-        <div className='image-wrap'>
-          <img src={'/static/all-plp/' + id + '-front-940x529.jpg'} alt=""/>
-          <div className="text">
-            {/* <div className="name">{brand}</div> */}
-            {/* <div className="price">£{price}</div> */}
-          </div>
-        </div>
-
-
-        {/* <Carousel id={id} images={images} brand={item.brand} price={item.price}/> */}
-
-        {/* <div className='radios'>
-          <Radio
-            checked={this.state.color === 'jet black eclipse'}
-            onChange={this.handleChange}
-            value="jet black eclipse"
-            name="radio-button-demo"
-            color="default"
-            classes={{ root: 'black'}}
-          />
-          <Radio
-            checked={this.state.color === 'whiskey tortoise'}
-            onChange={this.handleChange}
-            value="whiskey tortoise"
-            name="radio-button-demo"
-            color="default"
-            classes={{ root: 'whiskey'}}
-          />
-          <Radio
-            checked={this.state.color === 'midnight blue'}
-            onChange={this.handleChange}
-            value="midnight blue"
-            name="radio-button-demo"
-            color='default'
-            classes={{ root: 'midnight'}}
-          />
-        </div> */}
-        {/* <div className='color'>{this.state.color}</div> */}
-
+        <Carousel id={id} images={urls} brand={brand} price={price}/>
         <br/><br/>
         <CTAButton>
           <MenuItem onClick={this.handleAddToBasket}>
@@ -115,7 +75,9 @@ class ProductDisplay extends Component {
             we'll replace your scratched lenses for free within the first 12 months.
           </p>
         </Shipping>
-        <div><br/><br/> Recommended here <br/><br/></div>
+        <Recommended>
+          [Recommended items go here]
+        </Recommended>
         <Footer/>
       </Style>
     )
@@ -123,6 +85,7 @@ class ProductDisplay extends Component {
 }
 
 export default connect(state => ({
+  // product: state.product
 }))(ProductDisplay)
 
 // {/* <Recommended>

@@ -1,6 +1,7 @@
 
-export const addToBasket = (brand, price, image, color) => (
-  {
-    type: 'ADD_TO_BASKET'
-    // payload: { brand, price, image, color, id: uuid() }
+export const addToBasket = (product) => (dispatch) => {
+  return dispatch({
+    type: 'ADD_TO_BASKET',
+    payload: product
   })
+}

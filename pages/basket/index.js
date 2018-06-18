@@ -86,6 +86,7 @@ const Basket = ({basket, dispatch}) => {
       payload: id
     })
   }
+  console.log('basket', basket)
   return <StyledBasket>
     <Nav/>
     <GoToCheckout>
@@ -98,7 +99,7 @@ const Basket = ({basket, dispatch}) => {
       {
         basket.map((item, i)=>
         <div className='item' key={i}>
-          <img src={'/static/all-plp/'+ item.image} alt=""/>
+          <img src={item.urls[0]} alt=""/>
           <div className='text'>
             <h4>{item.brand}</h4>
           </div>
@@ -109,7 +110,8 @@ const Basket = ({basket, dispatch}) => {
             </IconButton>
           </div>
         </div>
-      )}
+      )
+      }
     </BasketItems>
 
     <InfoBox/>

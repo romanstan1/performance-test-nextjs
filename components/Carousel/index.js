@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 const StyledImageBlock = styled.div`
   display: block;
+  text-align: center;
 
   div.eachItem {
     overflow-x:hidden;
@@ -62,7 +63,7 @@ export default class Carousel extends Component {
             images.map(item =>
               <img
                 style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
-                src={'static/all-plp/' + item} alt="" key={item}
+                src={item} alt="" key={item}
               />
             )
           }

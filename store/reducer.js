@@ -1,23 +1,24 @@
 const initialState = {
   basket: [
-    {
-      brand: "The Spectacle Store",
-      id: "25240283",
-      image: "25240283-front-940x529.jpg",
-      price: "79"
-    },
-    {
-      brand: "Kylie Minogue",
-      id: "25240313",
-      image: "25240313-front-940x529.jpg",
-      price: "89"
-    }
+    // {
+    //   brand: "The Spectacle Store",
+    //   id: "25240283",
+    //   image: "25240283-front-940x529.jpg",
+    //   price: "79"
+    // },
+    // {
+    //   brand: "Kylie Minogue",
+    //   id: "25240313",
+    //   image: "25240313-front-940x529.jpg",
+    //   price: "89"
+    // }
   ],
   data:[],
   page: 1
 }
 
 export default (state = initialState, action) => {
+  if(action.type === 'ADD_TO_BASKET') console.log(action.payload)
   switch (action.type) {
     case "ADD_TO_BASKET": {
       return {
@@ -38,11 +39,17 @@ export default (state = initialState, action) => {
         page: state.page + 1
       }
     }
-    case "ADD_INITIAL_PROPS": {
+    case "ADD_INITIAL_LISTINGS": {
       return {
         ...state,
         data: action.payload,
         page: 1
+      }
+    }
+    case "VIEW_PRODUCT_PDP": {
+      return {
+        ...state,
+        product: action.payload
       }
     }
     default:

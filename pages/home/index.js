@@ -67,14 +67,14 @@ export default () =>
     <div className='imageWrap'>
       <img src="/static/home/home100new.jpg" alt="" style={{background: '#0b6281'}}/>
       {/* <Image src={homeOne} className='image-loaded'/> */}
-      <Link route="/glasses">
+      <Link prefetch route="/glasses">
         <StyledButtonBase>Shop Glasses</StyledButtonBase>
       </Link>
     </div>
     <div className='imageWrap'>
       <img src="/static/home/home200new.jpg" alt="" style={{background: '#010101'}}/>
       {/* <Image src={homeTwo} className='image-loaded'/> */}
-      <Link route="/sunglasses">
+      <Link prefetch route="/sunglasses">
         <StyledButtonBase>Shop Sunglasses</StyledButtonBase>
       </Link>
     </div>

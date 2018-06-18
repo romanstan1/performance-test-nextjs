@@ -89,15 +89,15 @@ const SideList = () =>
   <StyledList>
     <br/><br/><br/>
     <Divider />
-    <Link route="/">
+    <Link prefetch route="/">
       <StyledMenuItem>Home</StyledMenuItem>
     </Link>
     <Divider />
-    <Link route="/glasses">
+    <Link prefetch route="/glasses">
       <StyledMenuItem>Glasses</StyledMenuItem>
     </Link>
     <Divider />
-    <Link route="/sunglasses">
+    <Link prefetch route="/sunglasses">
       <StyledMenuItem>Sunglasses</StyledMenuItem>
     </Link>
     <Divider />
@@ -124,11 +124,11 @@ class SwipeableTemporaryDrawer extends React.Component {
             <MenuIcon/>
           </StyledButtonBase>
 
-          <Link route="/">
+          <Link prefetch route="/">
             <Heading>The Spectacle Store</Heading>
           </Link>
 
-          <Link route="/basket">
+          <Link prefetch route="/basket">
             <StyledButtonBase>
               <ShoppingBasket/>
               <NotificationBubble className={this.props.basket.length? '': 'active'}>
