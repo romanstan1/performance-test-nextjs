@@ -9,6 +9,7 @@ import Footer from '../../components/Footer'
 import Nav from '../../components/Nav'
 import Carousel from '../../components/Carousel'
 import "isomorphic-fetch";
+import { Link, Router } from '../../routes'
 
 // const recommendedBrands =  [
 //   'Specsavers',
@@ -30,14 +31,9 @@ async function fetchItem(route, id) {
 
 class ProductDisplay extends Component {
 
-  state = {
-    added: false
-  }
-
   static async getInitialProps ({query}) {
     const route = query['0']
     const id = query.slug
-    console.log('query', query)
     const product = await fetchItem(route, id)
     return {route, product}
   }
@@ -49,11 +45,10 @@ class ProductDisplay extends Component {
   handleAddToBasket = () => {
     const {product, dispatch} = this.props
     dispatch(addToBasket(product))
-    // this.setState({added: true})
+    Router.pushRoute('/basket')
   }
 
   render() {
-    const {added} = this.state
     const {urls, id, brand, price} = this.props.product
     return (
       <Style>
@@ -62,7 +57,7 @@ class ProductDisplay extends Component {
         <br/><br/>
         <CTAButton>
           <MenuItem onClick={this.handleAddToBasket}>
-            {added? 'Successfully added!' : 'Add To Basket'}
+            Add To Basket
           </MenuItem>
         </CTAButton>
         <br/><br/>

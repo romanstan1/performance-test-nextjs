@@ -39,6 +39,7 @@ class ProductListing extends Component {
   async fetchMoreItems(start, end) {
     const {route, dispatch} = this.props
     const data = await fetchItems(route, start, end)
+    console.log('data', data)
     dispatch(addListings(data, 'ADD_MORE_LISTINGS'))
   }
 
@@ -65,14 +66,9 @@ class ProductListing extends Component {
           </div>
           {
             data.map((item, i) =>
-              <Link route={`/${route}/${item.id}`} params={{slug: 'dis'}} key={item.id}>
-                <div style={{cursor:'pointer'}}>
-                {/* <div key={item.id} onClick={() => this.handleProductClick(route, item)}> */}
-                  <LazyLoad height={300} offset={0}>
-                    <Carousel id={item.id} images={item.urls} brand={item.brand} price={item.price}/>
-                  </LazyLoad>
-                </div>
-              </Link>
+              <LazyLoad key={item.id + i} height={300} offset={800}>
+                <Carousel id={item.id} images={item.urls} brand={item.brand} price={item.price} route={route}/>
+              </LazyLoad>
             )
           }
           <div className='show-more'

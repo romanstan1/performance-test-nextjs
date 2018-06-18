@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react'
 import Radio from '@material-ui/core/Radio';
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey} from '../../colors'
 import styled from 'styled-components'
+import { Link, Router } from '../../routes'
 
 const StyledImageBlock = styled.div`
   display: block;
@@ -28,6 +29,7 @@ const StyledImageBlock = styled.div`
     justify-content: center;
     align-items: center;
     transform: translateY(-26px);
+    z-index: 300;
     svg {
       font-weight: 100;
       width: 22px;
@@ -54,13 +56,23 @@ export default class Carousel extends Component {
   }
 
   render() {
-    const {images, brand, price} = this.props
+    const {images, brand, price, route, id} = this.props
     const {level} = this.state
     return (
       <StyledImageBlock>
         <div className='eachItem'>
           {
             images.map(item =>
+              route?
+              <Link route={`/${route}/${id}`} key={item}>
+                <span style={{cursor: 'pointer'}}>
+                  <img
+                    style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
+                    src={item} alt="" key={item}
+                  />
+                </span>
+              </Link>  
+              :
               <img
                 style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
                 src={item} alt="" key={item}

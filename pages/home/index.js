@@ -3,11 +3,7 @@ import styled from 'styled-components'
 import Nav from '../../components/Nav'
 import InfoBox from '../../components/InfoBox';
 import Footer from '../../components/Footer';
-// import homeOne from './home-assets/home100new.jpg'
-// import homeTwo from './home-assets/home200new.jpg'
-// import Link from 'next/link'
 import { Link, Router } from '../../routes'
-
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, offwhite} from '../../colors'
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Image from '../../components/Image';
@@ -17,7 +13,6 @@ const StyledButtonBase = styled(ButtonBase)`
   bottom: 70px;
   left: 50%;
   transform: translateX(-50%);
-
   font-size: 14px;
   font-family: 'Raleway', sans-serif;
   color: ${backgroundgrey} !important;
@@ -66,14 +61,12 @@ export default () =>
     <Nav/>
     <div className='imageWrap'>
       <img src="/static/home/home100new.jpg" alt="" style={{background: '#0b6281'}}/>
-      {/* <Image src={homeOne} className='image-loaded'/> */}
       <Link prefetch route="/glasses">
         <StyledButtonBase>Shop Glasses</StyledButtonBase>
       </Link>
     </div>
     <div className='imageWrap'>
       <img src="/static/home/home200new.jpg" alt="" style={{background: '#010101'}}/>
-      {/* <Image src={homeTwo} className='image-loaded'/> */}
       <Link prefetch route="/sunglasses">
         <StyledButtonBase>Shop Sunglasses</StyledButtonBase>
       </Link>
