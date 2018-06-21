@@ -8,6 +8,8 @@ import Footer from '../../components/Footer'
 import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
 import Carousel from '../../components/Carousel'
+import Dictaphone from '../../components/Nav/Dictaphone'
+
 
 async function fetchItems(route, start, end) {
   const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="$key"&startAt="${start}"&endAt="${end}"`)
@@ -63,6 +65,7 @@ class ProductListing extends Component {
             <div>Filter frames</div>
             <div>Search frames</div>
           </div>
+          <Dictaphone></Dictaphone>
           {
             data.map((item, i) =>
               <LazyLoad key={item.id + i} height={300} offset={800}>

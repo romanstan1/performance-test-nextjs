@@ -1,5 +1,5 @@
-import Dictaphone from './Dictaphone'
 import React, {Component, Fragment} from 'react'
+import Dictaphone from './Dictaphone'
 
 class ProductListing extends Component {
 

@@ -9,6 +9,12 @@ const propTypes = {
 }
 
 class Dictaphone extends Component {
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+  componentWillUnmount() {
+    console.log('componentWillUnmount')
+  }
   render() {
     const { transcript, resetTranscript, browserSupportsSpeechRecognition } = this.props
 

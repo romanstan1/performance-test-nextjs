@@ -5,10 +5,12 @@ import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, electricblue, hoverelectricblue} from '../../colors'
+import Dictaphone from './Dictaphone'
 
 const StyledList = styled.div`
-  min-width: 80%;
-  width: 250px;
+  width: 80vw;
+  min-width: 250px;
+  max-width: 400px;
 `
 const StyledMenuItem = styled(MenuItem)`
   font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif !important;
@@ -19,7 +21,7 @@ const SideList = () =>
   <StyledList>
     <br/><br/><br/>
     <Divider />
-    <div></div>
+    <Dictaphone></Dictaphone>
   </StyledList>
 
 export default class NavigationDrawer extends React.Component {
@@ -36,8 +38,8 @@ export default class NavigationDrawer extends React.Component {
         <div
           tabIndex={0}
           role="button"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
+          // onClick={toggleDrawer(false)}
+          // onKeyDown={toggleDrawer(false)}
           >
             <SideList/>
           </div>
