@@ -5,10 +5,10 @@ import InfoBox from '../../components/InfoBox';
 import Footer from '../../components/Footer';
 import { Link, Router } from '../../routes'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, offwhite} from '../../colors'
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Image from '../../components/Image';
 
-const StyledButtonBase = styled(ButtonBase)`
+const StyledButtonBase = styled.div`
+  cursor: pointer;
   position: absolute !important;
   bottom: 70px;
   left: 50%;
@@ -60,13 +60,13 @@ export default () =>
   <StyledHome>
     <Nav/>
     <div className='imageWrap'>
-      <img src="/static/home/home100new.jpg" alt="" style={{background: '#0b6281'}}/>
+      <img src="/static/home/home100.jpg" alt="" style={{background: '#0b6281'}}/>
       <Link prefetch route="/glasses">
         <StyledButtonBase>Shop Glasses</StyledButtonBase>
       </Link>
     </div>
     <div className='imageWrap'>
-      <img src="/static/home/home200new.jpg" alt="" style={{background: '#010101'}}/>
+      <img src="/static/home/home200.jpg" alt="" style={{background: '#010101'}}/>
       <Link prefetch route="/sunglasses">
         <StyledButtonBase>Shop Sunglasses</StyledButtonBase>
       </Link>

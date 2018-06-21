@@ -34,7 +34,7 @@ export const StyledPLP = styled.div`
   div.filters {
     display: block;
     width: 65%;
-    min-width: 245px;
+    min-width: 255px;
     margin: 20px 0;
     div {
       margin: 0 5px;

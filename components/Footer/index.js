@@ -38,7 +38,7 @@ const StyledFooter = styled.footer`
     }
     ::placeholder {
       color: ${mediumgrey};
-      font-family: "Raleway", sans-serif;
+      font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
     }
   }
   h4 {

@@ -17,7 +17,6 @@ export default class MyDocument extends Document {
           <title>Performance Demo</title>
           <meta charSet="utf-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-          <link href="https://fonts.googleapis.com/css?family=Raleway:400" rel="stylesheet"/>
           {this.props.styleTags}
         </Head>
         <body>
@@ -34,8 +33,12 @@ injectGlobal`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Raleway', sans-serif;
     outline: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.02em;
   }
   html {
     background-color: #f4f4f4;

@@ -6,7 +6,6 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, electricblue, hoverelectricblue} from '../../colors'
@@ -48,7 +47,7 @@ const NotificationBubble = styled.div`
   }
 `
 const StyledMenuItem = styled(MenuItem)`
-  font-family: 'Raleway', sans-serif !important;
+  font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif !important;
   font-size: 14px !important;
 `;
 
@@ -69,19 +68,21 @@ const Drawer = styled.div`
   padding: 0 15px;
 `;
 
-const StyledButtonBase = styled(ButtonBase)`
-  width: 48px !important;
+const StyledButtonBase = styled.div`
+  width: 48px;
   height: 48px;
-  background: white !important;
-  padding-top: 1px !important;
+  cursor: pointer;
+  background: white;
   outline: none;
-  display: block !important;
-  border-radius: 50% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
   position: relative;
-  border: 0px solid white !important;
+  border: 0px solid white;
   &:hover {
-    border: 0px solid ${lightgrey} !important;
-    background: ${lightgrey} !important;
+    border: 0px solid ${lightgrey};
+    background: ${lightgrey};
   }
 `;
 

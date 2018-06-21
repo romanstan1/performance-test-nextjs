@@ -7,10 +7,28 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {connect} from 'react-redux'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, offwhite} from '../../colors'
 
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Cancel';
 
 const StyledBasket = styled.div``
+
+const StyledButtonBase = styled.div`
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  background: white;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+  border: 0px solid white;
+  &:hover {
+    border: 0px solid ${lightgrey};
+    background: ${lightgrey};
+  }
+`;
 
 const BasketItems = styled.div`
   border-top: 1px solid ${lightgrey};
@@ -86,13 +104,12 @@ const Basket = ({basket, dispatch}) => {
       payload: id
     })
   }
-  console.log('basket', basket)
   return <StyledBasket>
     <Nav/>
     <GoToCheckout>
       <h3>You have {basket.length} item{basket.length === 1?'':'s'} in your basket</h3>
       <CTAButton>
-        <MenuItem>Go to checkout</MenuItem>
+        Go to checkout
       </CTAButton>
     </GoToCheckout>
     <BasketItems>
@@ -105,9 +122,9 @@ const Basket = ({basket, dispatch}) => {
           </div>
           <div className="price">£{item.price}</div>
           <div className='remove'>
-            <IconButton onClick={handleDelete(item.id)} style={{ width:42, height:42}}>
+            <StyledButtonBase onClick={handleDelete(item.id)} style={{ width:42, height:42}}>
               <Delete style={{ fontSize:24, fill:'#414b56'}}/>
-            </IconButton>
+            </StyledButtonBase>
           </div>
         </div>
       )
