@@ -12,7 +12,6 @@ import "isomorphic-fetch";
 import { Link, Router } from '../../routes'
 
 async function fetchItem(route, id) {
-  console.log(route, id)
   const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="id"&equalTo="${id}"`)
   const data = await res.json()
   return Object.values(data)[0]

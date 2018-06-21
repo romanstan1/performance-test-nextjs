@@ -39,7 +39,6 @@ class ProductListing extends Component {
   async fetchMoreItems(start, end) {
     const {route, dispatch} = this.props
     const data = await fetchItems(route, start, end)
-    console.log('data', data)
     dispatch(addListings(data, 'ADD_MORE_LISTINGS'))
   }
 

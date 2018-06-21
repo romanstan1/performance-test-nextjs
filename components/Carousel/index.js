@@ -37,20 +37,25 @@ const StyledImageBlock = styled.div`
       fill: ${mediumgrey};
     }
   }
-  h2 {
-    transform: translateY(-15px);
-    font-size: 15px;
-  }
-  h3 {
-    transform: translateY(-10px);
-    font-size: 14px;
+  div.text {
+    line-height: 140%;
+    h2 {
+      font-size: 15px;
+      color: ${darkgrey};
+    }
+    h3 {
+      font-size: 14px;
+      color: ${mediumgrey};
+      font-weight: 400;
+      padding-bottom: 10px;
+    }
   }
 `
 
 
 const Radios = styled.div`
   padding: 10px 0;
-  transform: translateY(-20px);
+  transform: translateY(0px);
   div {
     margin: 4px 15px;
     height: 30px;
@@ -111,7 +116,10 @@ export default class Carousel extends Component {
             )
           }
         </div>
-
+        <div className='text'>
+          <h2>{brand}</h2>
+          <h3>£{price}</h3>
+        </div>
         <Radios>
           {
             images.map((item, i) =>
@@ -125,8 +133,6 @@ export default class Carousel extends Component {
             )
           }
         </Radios>
-        <h2>{brand}</h2>
-        <h3>£{price}</h3>
       </StyledImageBlock>
     )
   }
