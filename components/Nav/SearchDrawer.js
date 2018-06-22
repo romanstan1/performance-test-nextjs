@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, electricblue, hoverelectricblue} from '../../colors'
 import Modal from '@material-ui/core/Modal';
 import Dictaphone from './Dictaphone'
+import {connect} from 'react-redux'
 
 const StyledList = styled.div`
   width: 100vw;
@@ -82,44 +83,47 @@ const Results = ({items}) => {
   </StyledList>
 }
 
-const Header = ({toggleDrawer, toggleVoiceModal}) =>
+const Header = ({toggleDrawer, toggleVoiceModal, searchText,handleInput }) =>
   <StyledHeader>
     <ButtonBase
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}>
       <BackwardsArrow/>
     </ButtonBase>
-
-    <input autoFocus placeholder="Search" type="text"/>
-
+    <input autoFocus placeholder="Search" type="text" value={searchText} onChange={handleInput}/>
     <ButtonBase onClick={() => toggleVoiceModal()}>
       <Microphone/>
     </ButtonBase>
-
   </StyledHeader>
 
 
-
-export default class SearchDrawer extends Component {
+class SearchDrawer extends Component {
 
   state = {
-    voiceModalOpen: false
+    voiceModalOpen: false,
+    searchText: ''
   }
 
-  makeQuery = () => {
-    console.log('makeQuery')
+  handleMakeQuery = (query) => {
+    console.log('makeQuery :', query)
+    this.setState({searchText: query})
+    this.fetchData()
+  }
+
+  fetchData = (query) => {
+    // this.props.dispatch()
   }
 
   toggleVoiceModal = () => {
-
-    // if(this.state.voiceModalOpen) return null
-    // else
     this.setState({voiceModalOpen: !this.state.voiceModalOpen})
+  }
+
+  handleInput = (e) => {
+    this.setState({searchText: e.target.value})
   }
 
   render() {
     const {open, toggleDrawer} = this.props
-
     return (
       <SwipeableDrawer
         open={open}
@@ -128,6 +132,8 @@ export default class SearchDrawer extends Component {
         anchor="right"
         >
           <Header
+            handleInput={this.handleInput}
+            searchText={this.state.searchText}
             toggleDrawer={toggleDrawer}
             toggleVoiceModal={this.toggleVoiceModal}
           />
@@ -139,7 +145,7 @@ export default class SearchDrawer extends Component {
             >
             <span>
               <Dictaphone
-                makeQuery={this.makeQuery}
+                makeQuery={this.handleMakeQuery}
                 toggleVoiceModal={this.toggleVoiceModal}
               />
             </span>
@@ -149,5 +155,5 @@ export default class SearchDrawer extends Component {
     )
   }
 }
-// console.log('Dictaphone: ', Dictaphone)
-// Dictaphone.getValue('127')
+
+export default connect()(SearchDrawer)
