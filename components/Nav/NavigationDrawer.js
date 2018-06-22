@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, electricblue, hoverelectricblue} from '../../colors'
 
 const StyledList = styled.div`
-  width: 80%;
+  width: 85vw;
   min-width: 220px;
 `
 const StyledMenuItem = styled(MenuItem)`

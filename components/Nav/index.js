@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, electricblue, hoverelectricblue} from '../../colors'
 import { Link, Router } from '../../routes'
 
-
 const Header = styled.header`
   background: #fff;
   width: 100%;
@@ -14,7 +13,7 @@ const Header = styled.header`
   display: grid;
   grid-template-columns: 48px 48px auto 48px 48px;
   align-items: center;
-  padding: 8px 20px;
+  padding: 8px;
 `;
 
 const StyledButtonBase = styled.div`
@@ -34,7 +33,6 @@ const StyledButtonBase = styled.div`
     background: ${lightgrey};
   }
 `;
-
 
 const Navbar = styled.nav`
   display: flex;
