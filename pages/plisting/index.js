@@ -9,7 +9,6 @@ import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
 import Carousel from '../../components/Carousel'
 
-
 async function fetchItems(route, start, end) {
   const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="$key"&startAt="${start}"&endAt="${end}"`)
   const data = await res.json()

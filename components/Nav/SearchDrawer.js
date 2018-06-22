@@ -5,7 +5,8 @@ import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, electricblue, hoverelectricblue} from '../../colors'
-// import Dictaphone from './Dictaphone'
+import Modal from '@material-ui/core/Modal';
+import Dictaphone from './Dictaphone'
 
 const StyledList = styled.div`
   width: 100vw;
@@ -24,7 +25,6 @@ const StyledMenuItem = styled(MenuItem)`
 const Microphone = () =>
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
     <path d="M7 24h2v-2H7v2zm5-11c1.66 0 2.99-1.34 2.99-3L15 4c0-1.66-1.34-3-3-3S9 2.34 9 4v6c0 1.66 1.34 3 3 3zm-1 11h2v-2h-2v2zm4 0h2v-2h-2v2zm4-14h-1.7c0 3-2.54 5.1-5.3 5.1S6.7 13 6.7 10H5c0 3.41 2.72 6.23 6 6.72V20h2v-3.28c3.28-.49 6-3.31 6-6.72z"/>
-    <path d="M0 0h24v24H0z" fill="none"/>
   </svg>
 
 const BackwardsArrow = () =>
@@ -33,7 +33,7 @@ const BackwardsArrow = () =>
     <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
   </svg>
 
-const SearchBox = styled.div`
+const StyledHeader = styled.div`
   width: 100%;
   font-size: 0px;
   padding: 5px 15px;
@@ -67,7 +67,7 @@ const ButtonBase = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  font-style: 0px;
+  font-size: 19px;
   position: relative;
   border: 0px solid white;
   &:hover {
@@ -76,29 +76,50 @@ const ButtonBase = styled.div`
   }
 `;
 
-const Results = ({items, toggleDrawer}) =>
-  <StyledList>
-    <SearchBox>
-      <ButtonBase
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}>
-        <BackwardsArrow/>
-      </ButtonBase>
-
-      <input autoFocus placeholder="Search" type="text"/>
-
-      <ButtonBase>
-        <Microphone/>
-      </ButtonBase>
-
-    </SearchBox>
-
+const Results = ({items}) => {
+  return <StyledList>
+    {/* Results go here */}
   </StyledList>
+}
+
+const Header = ({toggleDrawer, toggleVoiceModal}) =>
+  <StyledHeader>
+    <ButtonBase
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}>
+      <BackwardsArrow/>
+    </ButtonBase>
+
+    <input autoFocus placeholder="Search" type="text"/>
+
+    <ButtonBase onClick={() => toggleVoiceModal()}>
+      <Microphone/>
+    </ButtonBase>
+
+  </StyledHeader>
+
+
 
 export default class SearchDrawer extends Component {
 
+  state = {
+    voiceModalOpen: false
+  }
+
+  makeQuery = () => {
+    console.log('makeQuery')
+  }
+
+  toggleVoiceModal = () => {
+
+    // if(this.state.voiceModalOpen) return null
+    // else
+    this.setState({voiceModalOpen: !this.state.voiceModalOpen})
+  }
+
   render() {
     const {open, toggleDrawer} = this.props
+
     return (
       <SwipeableDrawer
         open={open}
@@ -106,15 +127,27 @@ export default class SearchDrawer extends Component {
         onOpen={toggleDrawer(true)}
         anchor="right"
         >
-        <div
-          tabIndex={0}
-          role="button"
-          // onClick={toggleDrawer(false)}
-          // onKeyDown={toggleDrawer(false)}
-          >
-            <Results toggleDrawer={toggleDrawer} items={null}/>
-          </div>
+          <Header
+            toggleDrawer={toggleDrawer}
+            toggleVoiceModal={this.toggleVoiceModal}
+          />
+          <Results items={null} />
+
+          <Modal
+            open={this.state.voiceModalOpen}
+            onClose={this.toggleVoiceModal}
+            >
+            <span>
+              <Dictaphone
+                makeQuery={this.makeQuery}
+                toggleVoiceModal={this.toggleVoiceModal}
+              />
+            </span>
+          </Modal>
+
       </SwipeableDrawer>
     )
   }
 }
+// console.log('Dictaphone: ', Dictaphone)
+// Dictaphone.getValue('127')
