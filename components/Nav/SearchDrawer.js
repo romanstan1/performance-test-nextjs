@@ -87,7 +87,6 @@ const ButtonBase = styled.div`
 
 
 const StyledShowingResultsBar = styled.div`
-  ${'' /* display: flex; */}
   justify-content: center;
   align-items: center;
   padding: 7px 12px 7px 24px;
@@ -96,16 +95,13 @@ const StyledShowingResultsBar = styled.div`
   background: ${mediumgrey};
   color: white;
   line-height: 35px;
-  ${'' /* min-height: 49px; */}
   position: relative;
   p {
-    ${'' /* display: inline-block; */}
     text-align: left;
     width: 85%;
     font-weight: 400;
     font-size: 15px;
     span {
-      ${'' /* display: inline-block; */}
       font-weight: 600;
     }
   }
@@ -176,13 +172,11 @@ class SearchDrawer extends Component {
   toggleVoiceModal = () => {
     this.setState({voiceModalOpen: !this.state.voiceModalOpen})
   }
-
   handleInput = (e) => {
     this.setState({searchQuery: e.target.value, searching: true})
     clearTimeout(this.timer);
     this.timer = setTimeout(fetchSearchItems, 1500, e.target.value, this.props.dispatch)
   }
-
   handleClearSearch = () => {
     this.props.dispatch(clearSearch())
   }
@@ -190,6 +184,7 @@ class SearchDrawer extends Component {
   render() {
     const {open, toggleDrawer, search} = this.props
     const {searching, searchQuery, voiceModalOpen} = this.state
+
     return (
       <SwipeableDrawer
         open={open}
@@ -197,37 +192,46 @@ class SearchDrawer extends Component {
         onOpen={toggleDrawer(true)}
         anchor="right"
         >
-          <Header
-            handleInput={this.handleInput}
-            searchQuery={searchQuery}
-            toggleDrawer={toggleDrawer}
-            toggleVoiceModal={this.toggleVoiceModal}
-          />
-          {
-            !searching && search.query.length > 0?
-            <ShowingResultsBar
-              handleClearSearch={this.handleClearSearch}
-              resultsLength={search.results.length}
-              query={search.query}/> : null
-          }
-          {searching? <Spinner/> :
+        <Header
+          handleInput={this.handleInput}
+          searchQuery={searchQuery}
+          toggleDrawer={toggleDrawer}
+          toggleVoiceModal={this.toggleVoiceModal}
+        />
+        {
+          !searching && search.query.length > 0?
+          <ShowingResultsBar
+            handleClearSearch={this.handleClearSearch}
+            resultsLength={search.results.length}
+            query={search.query}/> : null
+        }
+        {
+          searching?
+            searchQuery.length > 0 ?
+            <Spinner/> :
             <Results
               toggleDrawer={toggleDrawer}
-              items={search.results}
-              route={search.route} />}
-
-          <Modal
-            open={voiceModalOpen}
-            onClose={this.toggleVoiceModal}
-            >
-            <span>
-              <Dictaphone
-                makeQuery={this.handleMakeQuery}
-                toggleVoiceModal={this.toggleVoiceModal}
-              />
-            </span>
-          </Modal>
-
+              items={[]}
+              route=''
+            />
+          :
+          <Results
+            toggleDrawer={toggleDrawer}
+            items={search.results}
+            route={search.route}
+          />
+        }
+        <Modal
+          open={voiceModalOpen}
+          onClose={this.toggleVoiceModal}
+          >
+          <span>
+            <Dictaphone
+              makeQuery={this.handleMakeQuery}
+              toggleVoiceModal={this.toggleVoiceModal}
+            />
+          </span>
+        </Modal>
       </SwipeableDrawer>
     )
   }

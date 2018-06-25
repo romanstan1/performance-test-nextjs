@@ -15,11 +15,15 @@ export async function fetchSearchItems(query, dispatch) {
     priceSearch(queryArr, route)
   ]);
 
+  const results = [].concat(...data)
+
+  console.log('RESULTS DATA:', results)
+
   dispatch({
     type: 'ADD_SEARCH_RESULTS',
     payload: {
       query: query,
-      results: [].concat(...data),
+      results: results,
       route: route
     }
   })
@@ -65,7 +69,7 @@ function priceSearch(queryArr, route) {
    return fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="price"&${operator}=${numOfPounds}`)
    .then(res => res.json())
    .then(res => {
-     if(res.error) return null
+     if(res.error) return []
      else return Object.values(res)
    })
    .catch(error => {

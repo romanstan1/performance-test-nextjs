@@ -18,9 +18,9 @@ export function initializeStore (initialState) {
 
 function logger({getState}) {
   return (next) => (action) => {
-    // console.log('dispatching', action)
+    // console.log('Action: ', action)
+    // console.log('State:', getState())
     let val = next(action)
-    // console.log('state', getState())
     return val
   }
 }
