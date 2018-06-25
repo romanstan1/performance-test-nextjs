@@ -207,13 +207,7 @@ class SearchDrawer extends Component {
         }
         {
           searching?
-            searchQuery.length > 0 ?
-            <Spinner/> :
-            <Results
-              toggleDrawer={toggleDrawer}
-              items={[]}
-              route=''
-            />
+          <Spinner active={!!searchQuery.length}/>     
           :
           <Results
             toggleDrawer={toggleDrawer}

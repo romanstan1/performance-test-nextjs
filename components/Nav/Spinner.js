@@ -2,9 +2,9 @@ import React, {Fragment, Component} from 'react';
 import styled from 'styled-components'
 
 const SvgSpinner = () =>
-    <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66">
-      <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
-    </svg>
+  <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66">
+    <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
+  </svg>
 
 const StyledSpinner = styled.div`
   margin-top: 100px;
@@ -51,7 +51,10 @@ const StyledSpinner = styled.div`
   }
 `
 
-export default () =>
+export default ({active}) =>
 <StyledSpinner>
-  <SvgSpinner></SvgSpinner>
+  {
+    active?
+    <SvgSpinner/>:null
+  }
 </StyledSpinner>
