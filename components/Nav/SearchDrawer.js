@@ -121,11 +121,9 @@ const Results = ({items, route, toggleDrawer}) =>
   <StyledList>
     {
       items.map((item, i) =>
-        // <span onClick={toggleDrawer(false)} key={item.id}>
         <span key={item.id}>
           <Carousel key={item.id} id={item.id} images={item.urls} brand={item.brand} price={item.price} route={route}/>
         </span>
-        // </span>
       )
     }
   </StyledList>
@@ -161,7 +159,6 @@ const clearSearch = () => dispatch => {
   })
 }
 
-
 class SearchDrawer extends Component {
 
   state = {
@@ -171,8 +168,7 @@ class SearchDrawer extends Component {
   }
 
   handleMakeQuery = (query) => {
-    this.setState({searchQuery: query})
-    const items = fetchSearchItems()
+    fetchSearchItems(query, this.props.dispatch)
   }
   componentWillReceiveProps() {
     if(this.state.searchQuery !== '') this.setState({searchQuery:'', searching: false})

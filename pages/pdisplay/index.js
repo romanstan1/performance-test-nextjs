@@ -25,6 +25,10 @@ class ProductDisplay extends Component {
     const product = await fetchItem(route, id)
     return {route, product}
   }
+  
+  componentDidMount() {
+    window.scrollTo( 0, 0 )
+  }
 
   handleChange = e => {
     this.setState({ color: e.target.value })

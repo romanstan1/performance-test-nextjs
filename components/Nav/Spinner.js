@@ -13,7 +13,7 @@ const StyledSpinner = styled.div`
   align-items: center;
   width: 100vw;
   min-width: 250px;
-
+  max-width: 510px;
   .spinner {
     animation: rotator  1.4s linear infinite;
   }

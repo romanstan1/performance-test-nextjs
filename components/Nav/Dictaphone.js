@@ -133,7 +133,6 @@ class Dictaphone extends Component {
   }
 
   componentDidMount() {
-    console.log('startListening')
     this.setState({ listenedOnce: false})
     setTimeout(()=>{
       this.handleStartListening()
@@ -141,7 +140,6 @@ class Dictaphone extends Component {
   }
   componentWillUnmount() {
     const { resetTranscript, abortListening, stopListening } = this.props
-    console.log('componentWillUnmount')
     setTimeout(()=>{
       abortListening()
       stopListening()
@@ -155,7 +153,6 @@ class Dictaphone extends Component {
   }
 
   handleStopListening = () => {
-    console.log('stopListening fired!')
     setTimeout(()=>{
       this.props.stopListening()
     }, 0)

@@ -4,7 +4,6 @@ import thunkMiddleware from 'redux-thunk'
 import reducer, {initialState} from './reducer'
 
 const customMiddleWare = store => next => action => {
-  // console.log('store and action in middleware!:', store, action)
   next(action);
 }
 const middleware = [
@@ -19,9 +18,9 @@ export function initializeStore (initialState) {
 
 function logger({getState}) {
   return (next) => (action) => {
-    console.log('dispatching', action)
+    // console.log('dispatching', action)
     let val = next(action)
-    console.log('state', getState())
+    // console.log('state', getState())
     return val
   }
 }
