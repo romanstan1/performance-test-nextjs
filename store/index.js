@@ -10,7 +10,7 @@ const customMiddleWare = store => next => action => {
 const middleware = [
   customMiddleWare,
   thunkMiddleware
-  // ,logger
+  ,logger
 ]
 
 export function initializeStore (initialState) {

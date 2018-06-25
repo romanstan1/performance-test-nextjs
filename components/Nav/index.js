@@ -98,7 +98,6 @@ class Nav extends React.Component {
 
   state = {
     left: false,
-    right: false
   };
 
   toggleNavDrawer = (open) => () => {
@@ -106,7 +105,7 @@ class Nav extends React.Component {
   }
 
   toggleSearchDrawer = (open) => () => {
-    this.setState({right: open, left: false})
+    this.props.dispatch({type: "OPEN_SEARCH_DRAWER", payload: open})
   }
 
   render() {
@@ -136,7 +135,7 @@ class Nav extends React.Component {
         </StyledButtonBase>
 
         <NavigationDrawer toggleDrawer={this.toggleNavDrawer} open={this.state.left}/>
-        <SearchDrawer toggleDrawer={this.toggleSearchDrawer} open={this.state.right}/>
+        <SearchDrawer toggleDrawer={this.toggleSearchDrawer} open={this.props.searchDrawerOpen}/>
 
       </Header>
     )
@@ -144,5 +143,6 @@ class Nav extends React.Component {
 }
 
 export default connect(state => ({
-  basket: state.basket
+  basket: state.basket,
+  searchDrawerOpen: state.searchDrawerOpen
 }))(Nav)

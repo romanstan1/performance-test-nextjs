@@ -3,6 +3,7 @@ import {lightgrey, mediumgrey, darkgrey, backgroundgrey} from '../../colors'
 import styled from 'styled-components'
 import { Link, Router } from '../../routes'
 import LazyLoad from 'react-lazyload'
+import {connect} from 'react-redux'
 
 const StyledImageBlock = styled.div`
   display: block;
@@ -81,12 +82,18 @@ const Radios = styled.div`
   }
 `
 
-export default class Carousel extends Component {
+class Carousel extends Component {
   state = {
     level: '0'
   }
   handleClick = (e) => {
     this.setState({level: e.target.dataset.value})
+  }
+
+  handleRouteClick = () => {
+    const {route, id} = this.props
+    this.props.dispatch({type: "OPEN_SEARCH_DRAWER", payload: false })
+    Router.pushRoute(`/${route}/${id}`)
   }
 
   render() {
@@ -98,15 +105,20 @@ export default class Carousel extends Component {
           {
             images.map((item,index) =>
               route?
-              <Link prefetch route={`/${route}/${id}`} key={item}>
-                <span style={{cursor: 'pointer'}}>
+              // <Link prefetch route={`/${route}/${id}`} key={item}>
+                <span
+                  style={{cursor: 'pointer'}}
+                  onClick={this.handleRouteClick}
+                  // data-route={route}
+                  // data-id={id}
+                  key={item}>
                   <img
                     style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
                     src={item}
                     alt="" key={item}
                   />
                 </span>
-              </Link>
+              // </Link>
               :
               <img
                 style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
@@ -137,3 +149,4 @@ export default class Carousel extends Component {
     )
   }
 }
+export default connect()(Carousel)

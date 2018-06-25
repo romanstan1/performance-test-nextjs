@@ -14,11 +14,17 @@ const initialState = {
     // }
   ],
   data:[],
-  page: 1
+  page: 1,
+  search: {
+    results: [],
+    query: '',
+    route: null
+  },
+  searchDrawerOpen: false
+
 }
 
 export default (state = initialState, action) => {
-  if(action.type === 'ADD_TO_BASKET') console.log(action.payload)
   switch (action.type) {
     case "ADD_TO_BASKET": {
       return {
@@ -50,6 +56,32 @@ export default (state = initialState, action) => {
       return {
         ...state,
         product: action.payload
+      }
+    }
+    case "ADD_SEARCH_RESULTS": {
+      return {
+        ...state,
+        search: {
+          results: action.payload.results,
+          query: action.payload.query,
+          route: action.payload.route
+        }
+      }
+    }
+    case "CLEAR_SEARCH_RESULTS": {
+      return {
+        ...state,
+        search: {
+          results: [],
+          query: '',
+          route: null
+        }
+      }
+    }
+    case "OPEN_SEARCH_DRAWER": {
+      return {
+        ...state,
+        searchDrawerOpen: action.payload
       }
     }
     default:

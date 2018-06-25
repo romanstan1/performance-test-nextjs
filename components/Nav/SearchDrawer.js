@@ -8,14 +8,22 @@ import {lightgrey, mediumgrey, darkgrey, backgroundgrey, electricblue, hoverelec
 import Modal from '@material-ui/core/Modal';
 import Dictaphone from './Dictaphone'
 import {connect} from 'react-redux'
+import {fetchSearchItems} from './searchApi'
+import Spinner from './Spinner'
+import Delete from '../Buttons/Delete'
+import Carousel from '../../components/Carousel'
+import LazyLoad from 'react-lazyload'
 
 const StyledList = styled.div`
   width: 100vw;
   min-width: 250px;
+  max-width: 510px;
+  padding-bottom: 100px;
 `
 const SwipeableDrawer = styled(Drawer)`
+  display: block;
    > div:last-of-type  {
-     background: ${backgroundgrey} !important;
+     background: white !important;
    }
 `
 const StyledMenuItem = styled(MenuItem)`
@@ -77,53 +85,115 @@ const ButtonBase = styled.div`
   }
 `;
 
-const Results = ({items}) => {
-  return <StyledList>
-    {/* Results go here */}
-  </StyledList>
-}
 
-const Header = ({toggleDrawer, toggleVoiceModal, searchText,handleInput }) =>
+const StyledShowingResultsBar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  margin: 15px;
+  border-radius: 30px;
+  background: ${mediumgrey};
+  color: white;
+  line-height: 35px;
+  min-height: 49px;
+  position: relative;
+  p {
+    text-align: left;
+    width: 85%;
+    font-weight: 400;
+    font-size: 15px;
+    span {
+      font-weight: 600;
+    }
+  }
+
+  div.close {
+    position: absolute;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: red;
+  }
+`
+
+const Results = ({items, route, toggleDrawer}) =>
+  <StyledList>
+    {
+      items.map((item, i) =>
+        // <span onClick={toggleDrawer(false)} key={item.id}>
+        <span key={item.id}>
+          <Carousel key={item.id} id={item.id} images={item.urls} brand={item.brand} price={item.price} route={route}/>
+        </span>
+        // </span>
+      )
+    }
+  </StyledList>
+
+
+const Header = ({toggleDrawer, toggleVoiceModal, searchQuery,handleInput }) =>
   <StyledHeader>
     <ButtonBase
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}>
       <BackwardsArrow/>
     </ButtonBase>
-    <input autoFocus placeholder="Search" type="text" value={searchText} onChange={handleInput}/>
+    <input autoFocus placeholder="Search" type="text" value={searchQuery} onChange={handleInput}/>
     <ButtonBase onClick={() => toggleVoiceModal()}>
       <Microphone/>
     </ButtonBase>
   </StyledHeader>
+
+const ShowingResultsBar = ({handleClearSearch, query, resultsLength}) =>
+  <StyledShowingResultsBar>
+    {resultsLength > 0?
+      <p>Showing {resultsLength} results for <span>"{query}"</span></p>:
+      <p>No results for <span>"{query}"</span> </p>
+    }
+    <span onClick={handleClearSearch}>
+      <Delete />
+    </span>
+  </StyledShowingResultsBar>
+
+const clearSearch = () => dispatch => {
+  return dispatch({
+    type: 'CLEAR_SEARCH_RESULTS'
+  })
+}
 
 
 class SearchDrawer extends Component {
 
   state = {
     voiceModalOpen: false,
-    searchText: ''
+    searchQuery: '',
+    searching: false
   }
 
   handleMakeQuery = (query) => {
-    console.log('makeQuery :', query)
-    this.setState({searchText: query})
-    this.fetchData()
+    this.setState({searchQuery: query})
+    const items = fetchSearchItems()
   }
-
-  fetchData = (query) => {
-    // this.props.dispatch()
+  componentWillReceiveProps() {
+    if(this.state.searchQuery !== '') this.setState({searchQuery:'', searching: false})
   }
-
   toggleVoiceModal = () => {
     this.setState({voiceModalOpen: !this.state.voiceModalOpen})
   }
 
   handleInput = (e) => {
-    this.setState({searchText: e.target.value})
+    this.setState({searchQuery: e.target.value, searching: true})
+    clearTimeout(this.timer);
+    this.timer = setTimeout(fetchSearchItems, 1500, e.target.value, this.props.dispatch)
+  }
+
+  handleClearSearch = () => {
+    this.props.dispatch(clearSearch())
   }
 
   render() {
-    const {open, toggleDrawer} = this.props
+    const {open, toggleDrawer, search} = this.props
+    const {searching, searchQuery, voiceModalOpen} = this.state
     return (
       <SwipeableDrawer
         open={open}
@@ -133,14 +203,25 @@ class SearchDrawer extends Component {
         >
           <Header
             handleInput={this.handleInput}
-            searchText={this.state.searchText}
+            searchQuery={searchQuery}
             toggleDrawer={toggleDrawer}
             toggleVoiceModal={this.toggleVoiceModal}
           />
-          <Results items={null} />
+          {
+            !searching && search.query.length > 0?
+            <ShowingResultsBar
+              handleClearSearch={this.handleClearSearch}
+              resultsLength={search.results.length}
+              query={search.query}/> : null
+          }
+          {searching? <Spinner/> :
+            <Results
+              toggleDrawer={toggleDrawer}
+              items={search.results}
+              route={search.route} />}
 
           <Modal
-            open={this.state.voiceModalOpen}
+            open={voiceModalOpen}
             onClose={this.toggleVoiceModal}
             >
             <span>
@@ -156,4 +237,6 @@ class SearchDrawer extends Component {
   }
 }
 
-export default connect()(SearchDrawer)
+export default connect(state => ({
+  search: state.search
+}))(SearchDrawer)
