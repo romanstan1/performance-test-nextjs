@@ -87,33 +87,33 @@ const ButtonBase = styled.div`
 
 
 const StyledShowingResultsBar = styled.div`
-  display: flex;
+  ${'' /* display: flex; */}
   justify-content: center;
   align-items: center;
-  padding: 7px;
-  margin: 15px;
+  padding: 7px 12px 7px 24px;
+  margin: 20px;
   border-radius: 30px;
   background: ${mediumgrey};
   color: white;
   line-height: 35px;
-  min-height: 49px;
+  ${'' /* min-height: 49px; */}
   position: relative;
   p {
+    ${'' /* display: inline-block; */}
     text-align: left;
     width: 85%;
     font-weight: 400;
     font-size: 15px;
     span {
+      ${'' /* display: inline-block; */}
       font-weight: 600;
     }
   }
 
-  div.close {
+  > span {
     position: absolute;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background: red;
+    right: 15px;
+    top: calc(50% - 17px);
   }
 `
 

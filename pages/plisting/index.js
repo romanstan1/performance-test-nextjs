@@ -8,6 +8,8 @@ import Footer from '../../components/Footer'
 import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
 import Carousel from '../../components/Carousel'
+import CheckConnection from '../../components/CheckConnection'
+
 
 async function fetchItems(route, start, end) {
   const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="$key"&startAt="${start}"&endAt="${end}"`)
@@ -31,8 +33,12 @@ class ProductListing extends Component {
 
   static async getInitialProps ({query, reduxStore}) {
     const route = query['0']
-    const data = await fetchItems(route, 0, 19)
-    reduxStore.dispatch(addListings(data, 'ADD_INITIAL_LISTINGS'))
+    try {
+      const data = await fetchItems(route, 0, 19)
+      reduxStore.dispatch(addListings(data, 'ADD_INITIAL_LISTINGS'))
+    } catch(err) {
+      console.log('error: ', err)
+    }
     return {route}
   }
 
@@ -49,6 +55,7 @@ class ProductListing extends Component {
 
   render() {
     const {data, route, page} = this.props
+    console.log('data', data)
     return (
       <Fragment>
         <Nav/>
@@ -56,24 +63,34 @@ class ProductListing extends Component {
           <div className="landing-image">
             <img src={`/static/landing-plp/${route}.jpg`} alt=""/>
           </div>
-          <br/><br/>
-          <h2>All {route}</h2>
-          <h3>Showing {(page)*20} of {route === 'sunglasses'? 65 : 599}</h3>
-          <div className='filters'>
-            <div>Filter frames</div>
-            <div>Search frames</div>
-          </div>
           {
-            data.map((item, i) =>
-              <LazyLoad key={item.id + i} height={300} offset={800}>
-                <Carousel id={item.id} images={item.urls} brand={item.brand} price={item.price} route={route}/>
-              </LazyLoad>
-            )
+            data.length?
+            <Fragment>
+              <br/><br/>
+              <h2>All {route}</h2>
+              <h3>Showing {(page)*20} of {route === 'sunglasses'? 65 : 599}</h3>
+              <div className='filters'>
+                <div>Filter frames</div>
+                <div>Search frames</div>
+              </div>
+            </Fragment> : null
           }
-          <div className='show-more'
-            onClick={() => this.fetchMoreItems(page*20, ((page+1)*20)-1) }>
-            Show more
-          </div>
+          {
+            data.length? data.map((item, i) =>
+            <LazyLoad key={item.id + i} height={300} offset={800}>
+              <Carousel id={item.id} images={item.urls} brand={item.brand} price={item.price} route={route}/>
+            </LazyLoad>)
+            :
+            <CheckConnection plural={true}/>
+          }
+          {
+            data.length?
+            <div className='show-more'
+              onClick={() => this.fetchMoreItems(page*20, ((page+1)*20)-1) }>
+              Show more
+            </div>
+            :null
+          }
           </StyledPLP>
           <Footer/>
       </Fragment>

@@ -34,6 +34,10 @@ function colorSearch(keyword, route) {
     if(res.error) return []
     else return Object.values(res)
   })
+  .catch(error => {
+    console.log('error:', error)
+    return []
+  })
 }
 
 function brandSearch(keyword, route) {
@@ -42,6 +46,10 @@ function brandSearch(keyword, route) {
   .then(res => {
     if(res.error) return []
     else return Object.values(res)
+  })
+  .catch(error => {
+    console.log('error:', error)
+    return []
   })
 }
 
@@ -55,11 +63,15 @@ function priceSearch(queryArr, route) {
    const numOfPounds = parseInt(queryArr[1].substring(1))
 
    return fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="price"&${operator}=${numOfPounds}`)
-     .then(res => res.json())
-     .then(res => {
-       if(res.error) return null
-       else return Object.values(res)
-     })
+   .then(res => res.json())
+   .then(res => {
+     if(res.error) return null
+     else return Object.values(res)
+   })
+   .catch(error => {
+     console.log('error:', error)
+     return []
+   })
  }
 
  return []
