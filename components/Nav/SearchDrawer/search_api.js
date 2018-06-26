@@ -3,22 +3,15 @@ const capitalize = st => st.replace(/\w\S*/g, tx => tx.charAt(0).toUpperCase() +
 
 export async function fetchSearchItems(query, dispatch) {
 
-  console.log('query: ', query)
-
   const queryArr = query.toLowerCase().split(" ")
   const route = queryArr.pop()
   const keyword = queryArr.join(' ')
-
   const data = await Promise.all([
     colorSearch(keyword, route),
     brandSearch(keyword, route),
     priceSearch(queryArr, route)
   ]);
-
   const results = [].concat(...data)
-
-  console.log('RESULTS DATA:', results)
-
   dispatch({
     type: 'ADD_SEARCH_RESULTS',
     payload: {
@@ -28,8 +21,6 @@ export async function fetchSearchItems(query, dispatch) {
     }
   })
 }
-
-
 
 function colorSearch(keyword, route) {
  return fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="color"&equalTo="${keyword}"`)
@@ -76,7 +67,31 @@ function priceSearch(queryArr, route) {
      console.log('error:', error)
      return []
    })
+
+   return search(route, operator, numOfPounds)
  }
 
  return []
 }
+
+
+
+//
+// function search(keyword, route) {
+//
+//   const BRAND_URL = `https://specsavers-images.firebaseio.com/${route}.json?orderBy="brand"&equalTo="${capitalize(keyword)}"`
+//   const COLOR_URL = `https://specsavers-images.firebaseio.com/${route}.json?orderBy="color"&equalTo="${keyword}"`
+//   const PRICE_URL = `https://specsavers-images.firebaseio.com/${route}.json?orderBy="price"&${operator}=${numOfPounds}`
+//
+//
+//   return fetch(PRICE_URL)
+//   .then(res => res.json())
+//   .then(res => {
+//     if(res.error) return []
+//     else return Object.values(res)
+//   })
+//   .catch(error => {
+//     console.log('error:', error)
+//     return []
+//   })
+// }
