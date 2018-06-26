@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react'
 import SpeechRecognition from 'react-speech-recognition'
 import {MicrophoneIcon, GoogleIcon} from '../nav_components'
 import {StyledModalContent, ListeningButton} from '../style'
+// import 'volume-main.js'
+// import {beginVolumeAnimation, stopVolumeAnimation} from './volume-main.js'
 
 class Dictaphone extends Component {
 
@@ -17,17 +19,13 @@ class Dictaphone extends Component {
     // resetTranscript()
     clearTimeout(this.timer)
     abortListening()
+    // stopVolumeAnimation()
   }
 
   handleListeningInput = (interimTranscript, transcript) => {
-    console.log('interim transcript::', interimTranscript)
-    console.log('transcript::', transcript)
     clearTimeout(this.timer)
     let time = 5000
     if(transcript && transcript.length > 1) time = 1000
-
-    console.log('time: ', time, this.timer)
-
     this.timer = setTimeout(this.handleStopListening, time)
   }
 
@@ -38,6 +36,8 @@ class Dictaphone extends Component {
     startListening()
 
     this.setState({listenedOnce: true})
+
+    // beginVolumeAnimation()
     this.handleListeningInput()
   }
 
@@ -54,9 +54,10 @@ class Dictaphone extends Component {
 
     console.log('cleanTranscript:', cleanTranscript)
 
+    // stopVolumeAnimation()
     makeQuery(cleanTranscript)
     abortListening()
-    // toggleVoiceModal()
+    if(cleanTranscript.length > 1) toggleVoiceModal()
   }
 
   render() {
@@ -70,53 +71,44 @@ class Dictaphone extends Component {
       interimTranscript,
       recognition,
       toggleVoiceModal,
-      makeQuery
+      makeQuery,
+      open
     } = this.props
 
-    // if (!browserSupportsSpeechRecognition) return null
-    // if(!listening && transcript.length > 1) {
-    //   // abortListening()
-    //   // setTimeout(()=>{
-    //     // toggleVoiceModal()
-    //   // }, 0)
-    //   // setTimeout(()=>{
-    //   //   // makeQuery(interimTranscript)
-    //   //   abortListening()
-    //   //   toggleVoiceModal()
-    //   // }, 0)
-    // }
-    if(listening) {
-      this.handleListeningInput(interimTranscript, transcript)
-    }
+    if(!browserSupportsSpeechRecognition) return null
+    if(!open) return null
+    if(listening) this.handleListeningInput(interimTranscript, transcript)
 
     return (
       <StyledModalContent>
         {
           listening?
-            <span>
-              <h2>Listening...</h2>
-              <h4></h4>
-            </span> :
+          <span>
+            <h2>Listening...</h2>
+            <h4></h4>
+          </span>:
             this.state.listenedOnce?
+            <span>
+              <h2>Say Something.</h2>
+              <h4>Please try again.</h4>
+            </span>:
               <span>
                 <h2>Say Something.</h2>
-                <h4>Please try again.</h4>
-              </span>:
-              <span>
-                <h2>Say Something.</h2>
-                <h4> </h4>
+                <h4></h4>
               </span>
         }
 
         <ListeningButton
           onClick={this.handleStartListening}
           className={ listening?
-            interimTranscript.length > 1?
+            interimTranscript.length > 1 || transcript.length ?
             'listening pulse': 'listening'
             :null }
             >
           <MicrophoneIcon />
         </ListeningButton>
+
+        {/* <canvas id="meter" width="500" height="50"></canvas> */}
 
         <GoogleIcon/>
       </StyledModalContent>

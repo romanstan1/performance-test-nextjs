@@ -11,7 +11,6 @@ import {MicrophoneIcon, BackwardsArrowIcon, Spinner} from '../nav_components'
 import {StyledButtonBase} from '../style'
 import {StyledSearchHeader, StyledSearchResults, StyledShowingResultsBar} from './search_style'
 
-
 const Results = ({items, route, toggleDrawer}) =>
   <StyledSearchResults>
     {
@@ -70,7 +69,9 @@ class SearchDrawer extends Component {
     if(this.state.searchQuery !== '') this.setState({searchQuery:'', searching: false})
   }
   toggleVoiceModal = (value) => {
-    this.setState({voiceModalOpen: !this.state.voiceModalOpen})
+    setTimeout(() => {
+      this.setState({voiceModalOpen: !this.state.voiceModalOpen})
+    }, 0)
   }
   handleInput = (e) => {
     this.setState({searchQuery: e.target.value, searching: true})
@@ -121,6 +122,7 @@ class SearchDrawer extends Component {
           >
           <span>
             <Dictaphone
+              open={open}
               makeQuery={this.handleMakeQuery}
               toggleVoiceModal={this.toggleVoiceModal}
             />

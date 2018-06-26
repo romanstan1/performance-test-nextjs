@@ -6,11 +6,25 @@ export async function fetchSearchItems(query, dispatch) {
   const queryArr = query.toLowerCase().split(" ")
   const route = queryArr.pop()
   const keyword = queryArr.join(' ')
+
+  let operator = ''
+  let numOfPounds = ''
+  let allow = true
+
+  if(queryArr.length === 2 && queryArr[1].charAt(0) === '£') { // logic for priceCheck query
+    if(queryArr[0] === 'under') operator = 'endAt'
+    else if (queryArr[0] === 'over') operator = 'startAt'
+    numOfPounds = parseInt(queryArr[1].substring(1))
+  } else {
+    allow = false
+  }
+
   const data = await Promise.all([
-    colorSearch(keyword, route),
-    brandSearch(keyword, route),
-    priceSearch(queryArr, route)
+    search(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="color"&equalTo="${keyword}"`, true),
+    search(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="brand"&equalTo="${capitalize(keyword)}"`, true),
+    search(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="price"&${operator}=${numOfPounds}`, allow)
   ]);
+
   const results = [].concat(...data)
   dispatch({
     type: 'ADD_SEARCH_RESULTS',
@@ -22,8 +36,9 @@ export async function fetchSearchItems(query, dispatch) {
   })
 }
 
-function colorSearch(keyword, route) {
- return fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="color"&equalTo="${keyword}"`)
+const search = (url, allow) => {
+  if(!allow) return []
+  return fetch(url)
   .then(res => res.json())
   .then(res => {
     if(res.error) return []
@@ -34,64 +49,3 @@ function colorSearch(keyword, route) {
     return []
   })
 }
-
-function brandSearch(keyword, route) {
- return fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="brand"&equalTo="${capitalize(keyword)}"`)
-  .then(res => res.json())
-  .then(res => {
-    if(res.error) return []
-    else return Object.values(res)
-  })
-  .catch(error => {
-    console.log('error:', error)
-    return []
-  })
-}
-
-function priceSearch(queryArr, route) {
- if(queryArr.length === 2 && queryArr[1].charAt(0) === '£') {
-
-   let operator = ''
-   if(queryArr[0] === 'under') operator = 'endAt'
-   else if (queryArr[0] === 'over') operator = 'startAt'
-
-   const numOfPounds = parseInt(queryArr[1].substring(1))
-
-   return fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="price"&${operator}=${numOfPounds}`)
-   .then(res => res.json())
-   .then(res => {
-     if(res.error) return []
-     else return Object.values(res)
-   })
-   .catch(error => {
-     console.log('error:', error)
-     return []
-   })
-
-   return search(route, operator, numOfPounds)
- }
-
- return []
-}
-
-
-
-//
-// function search(keyword, route) {
-//
-//   const BRAND_URL = `https://specsavers-images.firebaseio.com/${route}.json?orderBy="brand"&equalTo="${capitalize(keyword)}"`
-//   const COLOR_URL = `https://specsavers-images.firebaseio.com/${route}.json?orderBy="color"&equalTo="${keyword}"`
-//   const PRICE_URL = `https://specsavers-images.firebaseio.com/${route}.json?orderBy="price"&${operator}=${numOfPounds}`
-//
-//
-//   return fetch(PRICE_URL)
-//   .then(res => res.json())
-//   .then(res => {
-//     if(res.error) return []
-//     else return Object.values(res)
-//   })
-//   .catch(error => {
-//     console.log('error:', error)
-//     return []
-//   })
-// }
