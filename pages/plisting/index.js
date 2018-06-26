@@ -9,7 +9,7 @@ import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
 import Carousel from '../../components/Carousel'
 import CheckConnection from '../../components/CheckConnection'
-
+import {LazyBackgroundImage, LazyImage, LazyFrame, LazyComponent} from 'lazy-react'
 
 async function fetchItems(route, start, end) {
   const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="$key"&startAt="${start}"&endAt="${end}"`)
@@ -77,9 +77,12 @@ class ProductListing extends Component {
           }
           {
             data.length? data.map((item, i) =>
-            <LazyLoad key={item.id + i} height={300} offset={800}>
-              <Carousel id={item.id} images={item.urls} brand={item.brand} price={item.price} route={route}/>
-            </LazyLoad>)
+              <Carousel key={item.id + i}
+                id={item.id} images={item.urls}
+                brand={item.brand}
+                price={item.price} route={route}
+              />
+            )
             :
             <CheckConnection plural={true}/>
           }

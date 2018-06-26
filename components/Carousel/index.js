@@ -4,19 +4,22 @@ import styled from 'styled-components'
 import { Link, Router } from '../../routes'
 import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
-import {LazyBackgroundImage, LazyImage, LazyFrame} from 'lazy-react'
+import {LazyBackgroundImage, LazyImage, LazyFrame, LazyComponent} from 'lazy-react'
+import Slider from "react-slick";
+import ReactTouchEvents from "react-touch-events";
 
-const StyledImageBlock = styled.div`
+const StyledCarousel = styled.div`
   display: block;
   text-align: center;
+  position: relative;
 
-  div.eachItem {
+  div.images {
     overflow-x:hidden;
     overflow-y: hidden;
     white-space: nowrap;
     position: relative;
     width: 100%;
-    img {
+    span {
       transition: 0.2s ease;
       margin: 0 10%;
       display: inline-block;
@@ -24,19 +27,15 @@ const StyledImageBlock = styled.div`
       height: 45.019607843vw;
       max-height: 229.6px;
     }
-  }
-  div.radios {
-    margin: 0px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(-26px);
-    z-index: 300;
-    svg {
-      font-weight: 100;
-      width: 22px;
-      height: 22px;
-      fill: ${mediumgrey};
+    img {
+      width: 100%;
+      display: block;
+      ${'' /* transition: 0.2s ease;
+      margin: 0 10%;
+      display: inline-block;
+      width: 80%;
+      height: 45.019607843vw;
+      max-height: 229.6px; */}
     }
   }
   div.text {
@@ -52,8 +51,7 @@ const StyledImageBlock = styled.div`
       padding-bottom: 10px;
     }
   }
-`
-
+`;
 
 const Radios = styled.div`
   padding: 10px 0;
@@ -81,7 +79,7 @@ const Radios = styled.div`
       background: ${mediumgrey};
     }
   }
-`
+`;
 
 class Carousel extends Component {
   state = {
@@ -90,49 +88,60 @@ class Carousel extends Component {
   handleClick = (e) => {
     this.setState({level: e.target.dataset.value})
   }
-
   handleRouteClick = () => {
     const {route, id} = this.props
     this.props.dispatch({type: "OPEN_SEARCH_DRAWER", payload: false })
     Router.pushRoute(`/${route}/${id}`)
   }
+  handleSwipe = (direction) => {
+    if(direction === 'left') this.changeLevel(1)
+    else if (direction === 'right') this.changeLevel(-1)
+  }
+  changeLevel = (dir) => {
+    let newLevel = parseInt(this.state.level) + dir
+    if(newLevel > 3) newLevel = 0
+    else if(newLevel < 0) newLevel = 3
+    console.log('newLevel:', newLevel)
+    this.setState({level: newLevel.toString()})
+  }
 
   render() {
+
     const {images, brand, price, route, id} = this.props
     const {level} = this.state
+    console.log('state: ', this.state.level)
+    console.log('route: ', route)
+
+
     return (
-      <StyledImageBlock>
-        <div className='eachItem'>
-          {
-            images.map((item,index) =>
-              route?
-              // <Link prefetch route={`/${route}/${id}`} key={item}>
-                <span
-                  style={{cursor: 'pointer'}}
-                  onClick={this.handleRouteClick}
-                  // data-route={route}
-                  // data-id={id}
-                  key={item}>
-                  <img
-                    style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
-                    src={item}
-                    alt="" key={item}
-                  />
-                </span>
-              // </Link>
-              :
-              <img
-                style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
-                src={item}
+      <StyledCarousel>
+        <ReactTouchEvents
+          onSwipe={ this.handleSwipe }
+        >
+          <div className='images'>
+            {
+              images.map((item,index) =>
+              <span
+                style={!!route ? {transform: `translateX(-${level * (100 / 0.8)}%)`,cursor: 'pointer'}:{transform: `translateX(-${level * (100 / 0.8)}%)`}}
+                onClick={!!route ? this.handleRouteClick : null}  //if route is true means its the plp page
+                onDragEnd={!!route ? this.handleRouteClick : null}
                 key={item}
-              />
-            )
-          }
-        </div>
+                >
+                <LazyImage
+                  link={item}
+                  offset={!!route ? 50 : 1000} //if route is true means its the plp page
+                >
+                </LazyImage>
+              </span>)
+            }
+          </div>
+        </ReactTouchEvents>
+
         <div className='text'>
           <h2>{brand}</h2>
           <h3>£{price}</h3>
         </div>
+
         <Radios>
           {
             images.map((item, i) =>
@@ -146,8 +155,42 @@ class Carousel extends Component {
             )
           }
         </Radios>
-      </StyledImageBlock>
+
+      </StyledCarousel>
     )
   }
 }
 export default connect()(Carousel)
+
+
+
+
+
+
+
+//
+// {/* </div>
+//   // {/* <LazyImage
+//   //   style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
+//   //   link={item}
+//   //   offset={100}
+//   // /> */}
+//   // </Link>
+//   :
+//   <LazyComponent
+//     style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
+//     // link={item}
+//     offset={0}
+//     key={item}
+//     >
+//       <img
+//         // style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
+//         src={item}
+//         // key={item}
+//       />
+//     </LazyComponent>
+//   )
+// } */}
+// asd
+//
+//
