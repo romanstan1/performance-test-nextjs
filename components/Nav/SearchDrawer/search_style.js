@@ -30,6 +30,8 @@ export const StyledSearchResults = styled.div`
   min-width: 250px;
   max-width: 510px;
   padding-bottom: 100px;
+  position: relative;
+  text-align: center;
 `;
 
 export const StyledShowingResultsBar = styled.div`

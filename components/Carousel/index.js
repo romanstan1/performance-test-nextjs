@@ -2,10 +2,8 @@ import React, {Component, Fragment} from 'react'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey} from '../../colors'
 import styled from 'styled-components'
 import { Link, Router } from '../../routes'
-import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
-import {LazyBackgroundImage, LazyImage, LazyFrame, LazyComponent} from 'lazy-react'
-import Slider from "react-slick";
+import {LazyImage} from 'lazy-react'
 import ReactTouchEvents from "react-touch-events";
 
 const StyledCarousel = styled.div`
@@ -101,7 +99,6 @@ class Carousel extends Component {
     let newLevel = parseInt(this.state.level) + dir
     if(newLevel > 3) newLevel = 0
     else if(newLevel < 0) newLevel = 3
-    console.log('newLevel:', newLevel)
     this.setState({level: newLevel.toString()})
   }
 
@@ -109,10 +106,6 @@ class Carousel extends Component {
 
     const {images, brand, price, route, id} = this.props
     const {level} = this.state
-    console.log('state: ', this.state.level)
-    console.log('route: ', route)
-
-
     return (
       <StyledCarousel>
         <ReactTouchEvents

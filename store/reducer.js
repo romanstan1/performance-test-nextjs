@@ -6,19 +6,14 @@ const initialState = {
     //   image: "25240283-front-940x529.jpg",
     //   price: "79"
     // },
-    // {
-    //   brand: "Kylie Minogue",
-    //   id: "25240313",
-    //   image: "25240313-front-940x529.jpg",
-    //   price: "89"
-    // }
   ],
   data:[],
   page: 1,
   search: {
     results: [],
     query: '',
-    route: null
+    route: null,
+    resultsShown: 0
   },
   searchDrawerOpen: false
 
@@ -65,7 +60,8 @@ export default (state = initialState, action) => {
         search: {
           results: action.payload.results,
           query: action.payload.query,
-          route: action.payload.route
+          route: action.payload.route,
+          resultsShown: action.payload.results.length > 10 ? 10 : action.payload.results.length
         }
       }
     }
@@ -75,7 +71,8 @@ export default (state = initialState, action) => {
         search: {
           results: [],
           query: '',
-          route: null
+          route: null,
+          resultsShown: 1
         }
       }
     }
@@ -83,6 +80,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         searchDrawerOpen: action.payload
+      }
+    }
+    case "SHOW_MORE_SEARCH_ITEMS": {
+      const {resultsShown, results} = state.search
+      console.log("SHOW_MORE_SEARCH_ITEMS", resultsShown, results.length)
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          resultsShown: results.length > resultsShown + 10 ?
+            resultsShown + 10 : results.length
+        }
       }
     }
     default:

@@ -46,19 +46,6 @@ export const StyledPLP = styled.div`
       border: 1px solid ${lightgrey};
     }
   }
-  div.show-more {
-    cursor: pointer;
-    padding: 8px 26px;
-    font-size: 13px;
-    color: ${mediumgrey};
-    border: 1px solid ${lightgrey};
-    margin: 20px 0;
-    &:hover {
-      color: white;
-      border: 1px solid ${darkgrey};
-      background: ${darkgrey}
-    }
-  }
   div.view-it {
     width: 510px;
     border-bottom: 3px solid blue;
