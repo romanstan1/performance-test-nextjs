@@ -78,7 +78,6 @@ class Dictaphone extends Component {
     if(!browserSupportsSpeechRecognition) return null
     if(!open) return null
     if(listening) this.handleListeningInput(interimTranscript, transcript)
-
     return (
       <StyledModalContent>
         {
@@ -107,24 +106,12 @@ class Dictaphone extends Component {
             >
           <MicrophoneIcon />
         </ListeningButton>
-
         {/* <canvas id="meter" width="500" height="50"></canvas> */}
-
         <GoogleIcon/>
       </StyledModalContent>
     )
   }
 }
-// {/* {
-//   listening?
-//   <Countdown
-//   start={listening}
-//   handleStopListening={this.handleStopListening}
-//   // handleStartListening={this.handleStartListening}
-//   interimTranscript={interimTranscript}
-// />
-// :null
-// } */}
 
 const options = {
   autoStart: false

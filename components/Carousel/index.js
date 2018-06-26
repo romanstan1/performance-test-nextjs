@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Link, Router } from '../../routes'
 import LazyLoad from 'react-lazyload'
 import {connect} from 'react-redux'
+import {LazyBackgroundImage, LazyImage, LazyFrame} from 'lazy-react'
 
 const StyledImageBlock = styled.div`
   display: block;
