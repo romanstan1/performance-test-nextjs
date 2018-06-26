@@ -28,7 +28,7 @@ class Nav extends React.Component {
         <span></span>
 
         <Link prefetch route="/">
-          <Heading>The Spectacle Store</Heading>
+          <Heading>The Specs Store</Heading>
         </Link>
 
         <Link prefetch route="/basket">

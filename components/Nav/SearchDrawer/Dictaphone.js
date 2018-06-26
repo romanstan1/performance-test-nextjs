@@ -45,21 +45,18 @@ class Dictaphone extends Component {
     clearTimeout(this.timer)
     const {stopListening, resetTranscript, abortListening, interimTranscript, makeQuery, toggleVoiceModal, transcript} = this.props
 
-    console.log('Final Interim transcripts::', interimTranscript)
     console.log('Final transcripts::', transcript)
     console.log()
 
-    makeQuery(transcript)
+    const cleanTranscript = transcript.split(' ')
+      .filter((item, pos, self) => self.indexOf(item) === pos)
+      .join(' ')
+
+    console.log('cleanTranscript:', cleanTranscript)
+
+    makeQuery(cleanTranscript)
     abortListening()
     // toggleVoiceModal()
-
-
-    // setTimeout(()=>{
-    //   console.log('stop listening')
-    //   this.props.stopListening()
-    //   this.props.abortListening()
-    //   this.props.resetTranscript()
-    // }, 0)
   }
 
   render() {

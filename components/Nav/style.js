@@ -41,7 +41,7 @@ export const Navbar = styled.nav`
 export const Heading = styled.div`
   color: #414b56;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 48px;
   height: 48px;
