@@ -22,7 +22,8 @@ const Results = ({items, route, toggleDrawer, resultsShown, showMoreItems}) =>
       )
     }
     {
-      resultsShown === items.length? null :
+      resultsShown === items.length || items.length === 0?
+      null :
       <Fragment>
         <br/><br/><br/>
         <ShowMore onClick={showMoreItems}>

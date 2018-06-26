@@ -84,7 +84,6 @@ export default (state = initialState, action) => {
     }
     case "SHOW_MORE_SEARCH_ITEMS": {
       const {resultsShown, results} = state.search
-      console.log("SHOW_MORE_SEARCH_ITEMS", resultsShown, results.length)
       return {
         ...state,
         search: {

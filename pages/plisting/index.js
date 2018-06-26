@@ -54,7 +54,6 @@ class ProductListing extends Component {
 
   render() {
     const {data, route, page} = this.props
-    console.log('data', data)
     return (
       <Fragment>
         <Nav/>
