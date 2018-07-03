@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import InfoBox from '../../components/InfoBox';
 import CTAButton from '../../components/CTAButton';
 import Nav from '../../components/Nav';
@@ -6,12 +6,10 @@ import styled from 'styled-components'
 import MenuItem from '@material-ui/core/MenuItem';
 import {connect} from 'react-redux'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey, offwhite} from '../../colors'
-
-// import IconButton from '@material-ui/core/IconButton';
+import * as firebase from 'firebase'
 import Delete from '@material-ui/icons/Cancel';
 
 const StyledBasket = styled.div``
-
 const StyledButtonBase = styled.div`
   width: 48px;
   height: 48px;
@@ -84,57 +82,68 @@ const BasketItems = styled.div`
   }
 `
 const GoToCheckout = styled.div`
-display: flex;
-justify-content:center;
-align-self: center;
-flex-direction: column;
-padding: 40px 0;
-h3 {
-  text-align: center;
-  padding: 10px 0;
-  font-size: 16px;
-}
+  display: flex;
+  justify-content:center;
+  align-self: center;
+  flex-direction: column;
+  padding: 40px 0;
+  h3 {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 16px;
+  }
 `
 
 
-const Basket = ({basket, dispatch}) => {
-  const handleDelete = (id) => () => {
-    dispatch({
+class Basket extends Component {
+
+  componentDidMount() {
+    // const database = firebase.database();
+    // const auth = firebase.auth()
+  }
+
+  handleDelete = (id) => () => {
+    this.props.dispatch({
       type: 'DELETE_ITEM',
       payload: id
     })
   }
-  return <StyledBasket>
-    <Nav/>
-    <GoToCheckout>
-      <h3>You have {basket.length} item{basket.length === 1?'':'s'} in your basket</h3>
-      <CTAButton>
-        Go to checkout
-      </CTAButton>
-    </GoToCheckout>
-    <BasketItems>
-      {
-        basket.map((item, i)=>
-        <div className='item' key={i}>
-          <img src={item.urls[0]} alt=""/>
-          <div className='text'>
-            <h4>{item.brand}</h4>
-          </div>
-          <div className="price">£{item.price}</div>
-          <div className='remove'>
-            <StyledButtonBase onClick={handleDelete(item.id)} style={{ width:42, height:42}}>
-              <Delete style={{ fontSize:24, fill:'#414b56'}}/>
-            </StyledButtonBase>
-          </div>
-        </div>
-      )
-      }
-    </BasketItems>
 
-    <InfoBox/>
-  </StyledBasket>
+  render() {
+    const {basket} = this.props
+
+    return (
+      <StyledBasket>
+        <Nav/>
+        <GoToCheckout>
+          <h3>You have {basket.length} item{basket.length === 1?'':'s'} in your basket</h3>
+          <CTAButton>
+            Go to checkout
+          </CTAButton>
+        </GoToCheckout>
+        <BasketItems>
+          {
+            basket.map((item, i)=>
+            <div className='item' key={i}>
+              <img src={item.urls[0]} alt=""/>
+              <div className='text'>
+                <h4>{item.brand}</h4>
+              </div>
+              <div className="price">£{item.price}</div>
+              <div className='remove'>
+                <StyledButtonBase onClick={this.handleDelete(item.id)} style={{ width:42, height:42}}>
+                  <Delete style={{ fontSize:24, fill:'#414b56'}}/>
+                </StyledButtonBase>
+              </div>
+            </div>
+          )
+        }
+      </BasketItems>
+      <InfoBox/>
+    </StyledBasket>
+    )
+  }
 }
-
 export default connect(state => ({
   basket: state.basket
 }))(Basket)

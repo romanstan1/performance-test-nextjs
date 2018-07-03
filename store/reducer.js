@@ -1,12 +1,5 @@
 const initialState = {
-  basket: [
-    // {
-    //   brand: "The Spectacle Store",
-    //   id: "25240283",
-    //   image: "25240283-front-940x529.jpg",
-    //   price: "79"
-    // },
-  ],
+  basket: [],
   data:[],
   page: 1,
   search: {
@@ -16,7 +9,6 @@ const initialState = {
     resultsShown: 0
   },
   searchDrawerOpen: false
-
 }
 
 export default (state = initialState, action) => {

@@ -11,6 +11,7 @@ import Carousel from '../../components/Carousel'
 import "isomorphic-fetch";
 import { Link, Router } from '../../routes'
 import CheckConnection from '../../components/CheckConnection'
+import * as firebase from 'firebase'
 
 async function fetchItem(route, id) {
   const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="id"&equalTo="${id}"`)
@@ -33,20 +34,20 @@ class ProductDisplay extends Component {
 
     return {route, product}
   }
-  // static async getInitialProps ({query, reduxStore}) {
-  //   const route = query['0']
-  //   try {
-  //     const data = await fetchItems(route, 0, 19)
-  //     reduxStore.dispatch(addListings(data, 'ADD_INITIAL_LISTINGS'))
-  //   } catch(err) {
-  //     console.log('error: ', err)
-  //   }
-  //   return {route}
-  // }
 
 
   componentDidMount() {
     window.scrollTo( 0, 0 )
+
+    const {product, dispatch} = this.props
+    //
+    // const database = firebase.database();
+    // const auth = firebase.auth()
+    //
+    // auth.onAuthStateChanged(user => {
+    //   if (user) database.ref('users/' + user.uid + "/recent").push().set(product)
+    // })
+
   }
 
   handleChange = e => {
@@ -56,12 +57,19 @@ class ProductDisplay extends Component {
   handleAddToBasket = () => {
     const {product, dispatch} = this.props
     dispatch(addToBasket(product))
-    Router.pushRoute('/basket')
+
+    const database = firebase.database();
+    const auth = firebase.auth()
+
+    auth.onAuthStateChanged(user => {
+      if (user) database.ref('users/' + user.uid + "/basket").push().set(product)
+    })
+
+    // Router.pushRoute('/basket')
   }
 
   render() {
     const {product} = this.props
-    console.log('product:', product)
     return (
       <Style>
         <Nav/>

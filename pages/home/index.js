@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import styled from 'styled-components'
 import Nav from '../../components/Nav'
 import InfoBox from '../../components/InfoBox';
@@ -56,21 +56,34 @@ const StyledHome = styled.div`
   }
 `
 
-export default () =>
-  <StyledHome>
-    <Nav/>
-    <div className='imageWrap'>
-      <img src="/static/home/home100.jpg" alt="" style={{background: '#0b6281'}}/>
-      <Link prefetch route="/glasses">
-        <StyledButtonBase>Shop Glasses</StyledButtonBase>
-      </Link>
-    </div>
-    <div className='imageWrap'>
-      <img src="/static/home/home200.jpg" alt="" style={{background: '#010101'}}/>
-      <Link prefetch route="/sunglasses">
-        <StyledButtonBase>Shop Sunglasses</StyledButtonBase>
-      </Link>
-    </div>
-    <InfoBox/>
-    <Footer/>
-  </StyledHome>
+export default class Home extends Component {
+
+  logIn = () => {
+    console.log('login')
+  }
+
+  render() {
+    return (
+      <StyledHome>
+        <Nav/>
+        <div className='imageWrap'>
+          <img src="/static/home/home100.jpg" alt="" style={{background: '#0b6281'}}/>
+          <Link prefetch route="/glasses">
+            <StyledButtonBase>Shop Glasses</StyledButtonBase>
+          </Link>
+        </div>
+        <div className='imageWrap'>
+          <img src="/static/home/home200.jpg" alt="" style={{background: '#010101'}}/>
+          <Link prefetch route="/sunglasses">
+            <StyledButtonBase>Shop Sunglasses</StyledButtonBase>
+          </Link>
+        </div>
+        <InfoBox/>
+        <div style={{position: 'relative', height: '180px', background:'grey', color:'black'}} onClick={this.logIn}>
+          <StyledButtonBase>Log In</StyledButtonBase>
+        </div>
+        <Footer/>
+      </StyledHome>
+    )
+  }
+}
