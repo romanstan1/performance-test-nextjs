@@ -8,13 +8,15 @@ const initialState = {
     route: null,
     resultsShown: 0
   },
-  searchDrawerOpen: false
+  searchDrawerOpen: false,
+  user: null,
+  recent: null
 }
 
 export default (state = initialState, action) => {
-  // console.log(action.type, state)
   switch (action.type) {
     case "ADD_TO_BASKET": {
+      console.log('ADD_TO_BASKET', state, action.payload)
       return {
         ...state,
         basket: [].concat(state.basket, action.payload)
@@ -23,7 +25,7 @@ export default (state = initialState, action) => {
     case "DELETE_ITEM": {
       return {
         ...state,
-        basket: state.basket.filter(item => item.id !== action.payload)
+        basket: state.basket.filter(item => item.uuid !== action.payload)
       }
     }
     case "ADD_MORE_LISTINGS": {
@@ -83,6 +85,25 @@ export default (state = initialState, action) => {
           resultsShown: results.length > resultsShown + 10 ?
             resultsShown + 10 : results.length
         }
+      }
+    }
+    case "ADD_USER_GLOBALLY": {
+      return {
+        ...state,
+        user: action.payload
+      }
+    }
+    case "UPDATE_RECENTLY_VIEWED": {
+      return {
+        ...state,
+        recent: action.payload
+      }
+    }
+    case "SET_NEW_BASKET": {
+      const basket = Object.entries(action.payload).map(pair => ({...pair[1], uuid: pair[0]}))
+      return {
+        ...state,
+        basket: basket
       }
     }
     default:

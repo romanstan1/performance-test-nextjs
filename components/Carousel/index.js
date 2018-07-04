@@ -28,12 +28,6 @@ const StyledCarousel = styled.div`
     img {
       width: 100%;
       display: block;
-      ${'' /* transition: 0.2s ease;
-      margin: 0 10%;
-      display: inline-block;
-      width: 80%;
-      height: 45.019607843vw;
-      max-height: 229.6px; */}
     }
   }
   div.text {

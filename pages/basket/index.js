@@ -2,116 +2,29 @@ import React, {Component} from 'react'
 import InfoBox from '../../components/InfoBox';
 import CTAButton from '../../components/CTAButton';
 import Nav from '../../components/Nav';
-import styled from 'styled-components'
 import MenuItem from '@material-ui/core/MenuItem';
 import {connect} from 'react-redux'
-import {lightgrey, mediumgrey, darkgrey, backgroundgrey, offwhite} from '../../colors'
 import * as firebase from 'firebase'
-import Delete from '@material-ui/icons/Cancel';
+import {StyledBasket, GoToCheckout, BasketItems} from './style'
+import ProductDetailList from '../../components/ProductDetailList';
 
-const StyledBasket = styled.div``
-const StyledButtonBase = styled.div`
-  width: 48px;
-  height: 48px;
-  cursor: pointer;
-  background: white;
-  outline: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  position: relative;
-  border: 0px solid white;
-  &:hover {
-    border: 0px solid ${lightgrey};
-    background: ${lightgrey};
-  }
-`;
-
-const BasketItems = styled.div`
-  border-top: 1px solid ${lightgrey};
-  display: flex;
-  flex-direction: column;
-  background: white;
-  padding: 0px 10px 0 10px;
-  div.item {
-    position: relative;
-    display: flex;
-    justify-content:space-around;
-    align-items: center;
-    margin: 20px 20px;
-    padding: 20px 0 30px 0;
-    border-bottom: 1px solid ${lightgrey};
-    &:first-child {
-      margin-top: 40px;
-    }
-    &:last-child {
-      border-bottom: 0px solid ${lightgrey};
-    }
-    h4 {
-      font-size: 15px;
-      padding: 10px 0;
-      color: ${darkgrey};
-    }
-    p {
-      font-size: 13px;
-      font-style: italic;
-      text-indent: 5px;
-      text-transform: capitalize;
-      color: ${mediumgrey};
-    }
-    img {
-      max-width: 40%;
-      height: 100px;
-    }
-    div.price {
-      color: ${darkgrey};
-      margin-botton: 10px;
-    }
-    div.remove {
-      position: absolute;
-      top: -20px;
-      right: -10px;
-      span.text {
-        font-style: italic;
-        font-size: 12px;
-        color: ${mediumgrey};
-        padding-right: 10px;
-      }
-    }
-  }
-`
-const GoToCheckout = styled.div`
-  display: flex;
-  justify-content:center;
-  align-self: center;
-  flex-direction: column;
-  padding: 40px 0;
-  h3 {
-    text-align: center;
-    padding: 10px 0;
-    font-size: 16px;
-  }
-`
-
+const deleteItem = (uuid) => (dispatch) => {
+  return dispatch({
+    type: 'DELETE_ITEM',
+    payload: uuid
+  })
+}
 
 class Basket extends Component {
 
-  componentDidMount() {
-    // const database = firebase.database();
-    // const auth = firebase.auth()
-  }
-
-  handleDelete = (id) => () => {
-    this.props.dispatch({
-      type: 'DELETE_ITEM',
-      payload: id
-    })
+  handleDelete = (uuid) => () => {
+    const {user, dispatch} = this.props
+    dispatch(deleteItem(uuid))
+    const database = firebase.database().ref('users/' + user + "/basket/" + uuid).remove();
   }
 
   render() {
     const {basket} = this.props
-
     return (
       <StyledBasket>
         <Nav/>
@@ -121,29 +34,13 @@ class Basket extends Component {
             Go to checkout
           </CTAButton>
         </GoToCheckout>
-        <BasketItems>
-          {
-            basket.map((item, i)=>
-            <div className='item' key={i}>
-              <img src={item.urls[0]} alt=""/>
-              <div className='text'>
-                <h4>{item.brand}</h4>
-              </div>
-              <div className="price">£{item.price}</div>
-              <div className='remove'>
-                <StyledButtonBase onClick={this.handleDelete(item.id)} style={{ width:42, height:42}}>
-                  <Delete style={{ fontSize:24, fill:'#414b56'}}/>
-                </StyledButtonBase>
-              </div>
-            </div>
-          )
-        }
-      </BasketItems>
-      <InfoBox/>
-    </StyledBasket>
+        <ProductDetailList items={basket} handleDelete={this.handleDelete}/>
+        <InfoBox/>
+      </StyledBasket>
     )
   }
 }
 export default connect(state => ({
+  user: state.user,
   basket: state.basket
 }))(Basket)

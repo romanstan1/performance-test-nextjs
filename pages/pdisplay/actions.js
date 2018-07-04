@@ -5,3 +5,9 @@ export const addToBasket = (product) => (dispatch) => {
     payload: product
   })
 }
+export const updateRecentlyViewed = (items) => (dispatch) => {
+  return dispatch({
+    type: 'UPDATE_RECENTLY_VIEWED',
+    payload: items
+  })
+}

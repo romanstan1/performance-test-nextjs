@@ -76,14 +76,19 @@ export const Shipping = styled.div`
     color: ${mediumgrey};
   }
 `
-export const Recommended = styled.div`
-  padding: 40px 10%;
+export const RecentlyViewed = styled.div`
+  padding: 20px 0%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   ${'' /* background: ${backgroundgrey}; */}
   text-align: center;
+  h3 {
+    color: ${darkgrey};
+    padding: 15px 0 35px 0;
+    font-size: 16px;
+  }
   div.image-wrap {
     width: 70%;
     padding: 10px 0px;

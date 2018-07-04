@@ -5,23 +5,47 @@ import { Provider } from 'react-redux'
 import config from './firebase'
 import firebase from 'firebase'
 
+export const addUserGlobally = (user) => {
+  return dispatch => dispatch({
+    type: "ADD_USER_GLOBALLY",
+    payload: user
+  })
+}
+export const setNewBasket = (basketData) => {
+  return dispatch => dispatch({
+    type: "SET_NEW_BASKET",
+    payload: basketData
+  })
+}
+
 class MyApp extends App {
 
   componentDidMount() {
-    console.log('did mount: ')
+
     const configapp = firebase.initializeApp(config);
     const auth = firebase.auth()
+
+    const database = firebase.database().ref('users/')
+
     auth.signInAnonymously().catch(error => {
       console.log('error: ', error)
     })
 
     auth.onAuthStateChanged(user => {
       if (user) {
-        console.log('user signed in: ', user, user.uid)
+        this.props.reduxStore.dispatch(addUserGlobally(user.uid))
+        const userDatabase = database.child(user.uid + '/basket/');
+        userDatabase.on('value', snapshot => {
+          const basketData = snapshot.val()
+          console.log('usersBasket', basketData)
+          this.props.reduxStore.dispatch(setNewBasket(basketData))
+        })
       } else {
         console.log('user signed out: ', user)
       }
     })
+
+
 
   }
 

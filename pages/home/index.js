@@ -57,11 +57,6 @@ const StyledHome = styled.div`
 `
 
 export default class Home extends Component {
-
-  logIn = () => {
-    console.log('login')
-  }
-
   render() {
     return (
       <StyledHome>
@@ -79,9 +74,6 @@ export default class Home extends Component {
           </Link>
         </div>
         <InfoBox/>
-        <div style={{position: 'relative', height: '180px', background:'grey', color:'black'}} onClick={this.logIn}>
-          <StyledButtonBase>Log In</StyledButtonBase>
-        </div>
         <Footer/>
       </StyledHome>
     )
