@@ -17,11 +17,17 @@ const StyledProductDetails = styled.div`
     display: flex;
     justify-content:space-around;
     align-items: center;
-    margin: 20px 20px;
-    padding: 20px 0 30px 0;
+    margin: 5px;
     border-bottom: 1px solid ${lightgrey};
-    &:first-child {
-      margin-top: 40px;
+    a {
+      display: block;
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content:space-around;
+      align-items: center;
+      margin: 40px 0;
+      padding: 5px 0;
     }
     &:last-child {
       border-bottom: 0px solid ${lightgrey};
@@ -64,7 +70,7 @@ const StyledProductDetails = styled.div`
     }
     div.remove {
       position: absolute;
-      top: -20px;
+      top: 0px;
       right: -10px;
       span.text {
         font-style: italic;
@@ -76,33 +82,34 @@ const StyledProductDetails = styled.div`
   }
 `;
 
-// {/* <Link prefetch route="/">
-// </Link> */}
-
 export default ({items, handleDelete}) => {
   return <StyledProductDetails>
   {
     items.map((item, i)=>
-    <div className='item' key={i}>
-      <div className='image'>
-        <img src={item.urls[0]} alt=""/>
+      <div className='item' key={i}>
+        <Link key={i} prefetch route={`/${item.route}/${item.id}`}>
+          <a>
+            <div className='image'>
+              <img src={item.urls[0]} alt=""/>
+            </div>
+            <div className='text'>
+              <h4>{item.brand}</h4>
+            </div>
+            <div className="price">£{item.price}</div>
+          </a>
+        </Link>
+        {
+          handleDelete?
+          <div className='remove'>
+            <StyledButtonBase
+              onClick={handleDelete(item.uuid)}
+              style={{ width:42, height:42}}>
+              <Delete style={{ fontSize:24, fill:'#414b56'}}/>
+            </StyledButtonBase>
+          </div>
+          :null
+        }
       </div>
-      <div className='text'>
-        <h4>{item.brand}</h4>
-      </div>
-      <div className="price">£{item.price}</div>
-      {
-        handleDelete?
-        <div className='remove'>
-          <StyledButtonBase
-            onClick={handleDelete(item.uuid)}
-            style={{ width:42, height:42}}>
-            <Delete style={{ fontSize:24, fill:'#414b56'}}/>
-          </StyledButtonBase>
-        </div>
-        :null
-      }
-    </div>
     )
   }
 </StyledProductDetails>}

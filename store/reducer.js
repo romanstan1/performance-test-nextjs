@@ -16,7 +16,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case "ADD_TO_BASKET": {
-      console.log('ADD_TO_BASKET', state, action.payload)
       return {
         ...state,
         basket: [].concat(state.basket, action.payload)
