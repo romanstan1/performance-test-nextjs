@@ -21,12 +21,9 @@ export const setNewBasket = (basketData) => {
 class MyApp extends App {
 
   componentDidMount() {
-
     const configapp = firebase.initializeApp(config);
     const auth = firebase.auth()
-
     const database = firebase.database().ref('users/')
-
     auth.signInAnonymously().catch(error => {
       console.log('error: ', error)
     })
@@ -44,9 +41,6 @@ class MyApp extends App {
         console.log('user signed out: ', user)
       }
     })
-
-
-
   }
 
   render () {

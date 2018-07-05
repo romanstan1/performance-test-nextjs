@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Link, Router } from '../../routes'
 import {connect} from 'react-redux'
 import {LazyImage} from 'lazy-react'
+import LazyLoad from 'react-lazy-load'
 import ReactTouchEvents from "react-touch-events";
 
 const StyledCarousel = styled.div`
@@ -90,9 +91,11 @@ class Carousel extends Component {
     else if (direction === 'right') this.changeLevel(-1)
   }
   changeLevel = (dir) => {
+    console.log('length of image data: ', this.props.images.length)
+    const {images} = this.props
     let newLevel = parseInt(this.state.level) + dir
-    if(newLevel > 3) newLevel = 0
-    else if(newLevel < 0) newLevel = 3
+    if(newLevel > images.length - 1) newLevel = 0
+    else if(newLevel < 0) newLevel = images.length - 1
     this.setState({level: newLevel.toString()})
   }
 
@@ -102,25 +105,33 @@ class Carousel extends Component {
     const {level} = this.state
     return (
       <StyledCarousel>
-        <ReactTouchEvents
-          onSwipe={ this.handleSwipe }
-        >
+        <ReactTouchEvents onSwipe={ this.handleSwipe } >
           <div className='images'>
-            {
-              images.map((item,index) =>
-              <span
-                style={!!route ? {transform: `translateX(-${level * (100 / 0.8)}%)`,cursor: 'pointer'}:{transform: `translateX(-${level * (100 / 0.8)}%)`}}
-                onClick={!!route ? this.handleRouteClick : null}  //if route is true means its the plp page
-                onDragEnd={!!route ? this.handleRouteClick : null}
-                key={item}
-                >
-                <LazyImage
-                  link={item}
-                  offset={!!route ? 50 : 1000} //if route is true means its the plp page
-                >
-                </LazyImage>
-              </span>)
-            }
+              {
+                images.map((item,index) =>
+                <span
+                  style={!!route ?
+                    {transform: `translateX(-${level * (100 / 0.8)}%)`,cursor: 'pointer'}:
+                    {transform: `translateX(-${level * (100 / 0.8)}%)`}}
+                  onClick={!!route ? this.handleRouteClick : null}  // if route is true means its the plp page
+                  onDragEnd={!!route ? this.handleRouteClick : null}
+                  key={item}
+                  >
+                  <LazyLoad
+                    offsetVertical={400}
+                    offsetHorizontal={!!route || level === '0' ? 100 : 1000}
+                      // if route is true means its the plp page // ie prefetch quicker on pdp and search
+                  >
+                    <img src={item} alt=""/>
+                    {/* <LazyImage
+                      link={item}
+                      offset={!!route ? 50 : 1000} // if route is true means its the plp page // ie
+                        fetch all on pdp and search
+                    /> */}
+                  </LazyLoad>
+                </span>
+                )
+              }
           </div>
         </ReactTouchEvents>
 
@@ -148,36 +159,3 @@ class Carousel extends Component {
   }
 }
 export default connect()(Carousel)
-
-
-
-
-
-
-
-//
-// {/* </div>
-//   // {/* <LazyImage
-//   //   style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
-//   //   link={item}
-//   //   offset={100}
-//   // /> */}
-//   // </Link>
-//   :
-//   <LazyComponent
-//     style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
-//     // link={item}
-//     offset={0}
-//     key={item}
-//     >
-//       <img
-//         // style={{transform: `translateX(-${level * (100 / 0.8)}%)`}}
-//         src={item}
-//         // key={item}
-//       />
-//     </LazyComponent>
-//   )
-// } */}
-// asd
-//
-//
