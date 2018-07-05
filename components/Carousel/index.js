@@ -100,38 +100,32 @@ class Carousel extends Component {
   }
 
   render() {
-
     const {images, brand, price, route, id} = this.props
     const {level} = this.state
     return (
       <StyledCarousel>
         <ReactTouchEvents onSwipe={ this.handleSwipe } >
           <div className='images'>
-              {
-                images.map((item,index) =>
-                <span
-                  style={!!route ?
-                    {transform: `translateX(-${level * (100 / 0.8)}%)`,cursor: 'pointer'}:
-                    {transform: `translateX(-${level * (100 / 0.8)}%)`}}
-                  onClick={!!route ? this.handleRouteClick : null}  // if route is true means its the plp page
-                  onDragEnd={!!route ? this.handleRouteClick : null}
-                  key={item}
-                  >
-                  <LazyLoad
-                    offsetVertical={800}
-                    offsetHorizontal={!!route || level === '0' ? 100 : 1000}
-                      // if route is true means its the plp page // ie prefetch quicker on pdp and search
-                  >
-                    <img src={item} alt=""/>
-                    {/* <LazyImage
-                      link={item}
-                      offset={!!route ? 50 : 1000} // if route is true means its the plp page // ie
-                        fetch all on pdp and search
-                    /> */}
-                  </LazyLoad>
-                </span>
-                )
-              }
+            {
+              images.map((item,index) =>
+              <span
+                style={!!route ?
+                  {transform: `translateX(-${level * (100 / 0.8)}%)`,cursor: 'pointer'}:
+                  {transform: `translateX(-${level * (100 / 0.8)}%)`}}
+                onClick={!!route ? this.handleRouteClick : null}  // if route is true means its the plp page
+                onDragEnd={!!route ? this.handleRouteClick : null}
+                key={item}
+                >
+                <LazyLoad
+                  offsetVertical={800}
+                  offsetHorizontal={!!route && level === '0' ? 100 : 1000}
+                    // if route is true means its the plp page // ie prefetch quicker on pdp and search
+                >
+                  <img src={item} alt=""/>
+                </LazyLoad>
+              </span>
+              )
+            }
           </div>
         </ReactTouchEvents>
 
