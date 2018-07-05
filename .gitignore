@@ -2,3 +2,5 @@
 /.next
 yarn.lock
 /pages/firebase.js
+colors.js
+store/

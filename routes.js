@@ -1,8 +1,4 @@
 const routes = module.exports = require('next-routes')()
-//
-// var fs = require('fs')
-// var files = fs.readdirSync('./static/glasses/')
-// console.log('files', files)
 
 routes
   .add('home', '/')
