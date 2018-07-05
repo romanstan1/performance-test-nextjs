@@ -16,7 +16,7 @@ const CheckConnection = styled.div`
   h4 {
     font-weight: 400;
   }
-`
+`;
 
 export default ({plural}) =>
 <CheckConnection>

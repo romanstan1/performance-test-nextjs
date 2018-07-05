@@ -33,14 +33,15 @@ export const StyledPLP = styled.div`
   }
   div.filters {
     display: block;
-    width: 65%;
+    width: 85%;
     min-width: 255px;
     margin: 20px 0;
     div {
-      margin: 0 5px;
+      cursor: pointer;
+      margin: 0 10px;
       display: inline-block;
-      cursor:not-allowed;
       padding: 8px 15px;
+      width: 130px;
       font-size: 13px;
       color: ${mediumgrey};
       border: 1px solid ${lightgrey};

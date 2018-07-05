@@ -68,8 +68,8 @@ class ProductListing extends Component {
               <h2>All {route}</h2>
               <h3>Showing {(page)*20} of {route === 'sunglasses'? 65 : 599}</h3>
               <div className='filters'>
-                <div>Filter frames</div>
-                <div>Search frames</div>
+                <div>Filters</div>
+                <div>Sort by</div>
               </div>
             </Fragment> : null
           }

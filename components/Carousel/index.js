@@ -3,7 +3,6 @@ import {lightgrey, mediumgrey, darkgrey, backgroundgrey} from '../../colors'
 import styled from 'styled-components'
 import { Link, Router } from '../../routes'
 import {connect} from 'react-redux'
-import {LazyImage} from 'lazy-react'
 import LazyLoad from 'react-lazy-load'
 import ReactTouchEvents from "react-touch-events";
 
@@ -91,7 +90,6 @@ class Carousel extends Component {
     else if (direction === 'right') this.changeLevel(-1)
   }
   changeLevel = (dir) => {
-    console.log('length of image data: ', this.props.images.length)
     const {images} = this.props
     let newLevel = parseInt(this.state.level) + dir
     if(newLevel > images.length - 1) newLevel = 0
@@ -102,6 +100,7 @@ class Carousel extends Component {
   render() {
     const {images, brand, price, route, id} = this.props
     const {level} = this.state
+
     return (
       <StyledCarousel>
         <ReactTouchEvents onSwipe={ this.handleSwipe } >
@@ -117,8 +116,8 @@ class Carousel extends Component {
                 key={item}
                 >
                 <LazyLoad
-                  offsetVertical={800}
-                  offsetHorizontal={!!route && level === '0' ? 100 : 1000}
+                  offsetVertical={450}
+                  offsetHorizontal={!!route && level === '0' ? 0 : 1000}
                     // if route is true means its the plp page // ie prefetch quicker on pdp and search
                 >
                   <img src={item} alt=""/>

@@ -33,9 +33,11 @@ const StyledProductDetails = styled.div`
       border-bottom: 0px solid ${lightgrey};
     }
     div.text {
-      width: 30%;
+      width: 35%;
       display: inline-flex;
       h4 {
+        display: block;
+        text-align: left;
         font-size: 15px;
         padding: 10px 0;
         color: ${darkgrey};
@@ -85,7 +87,7 @@ const StyledProductDetails = styled.div`
 export default ({items, handleDelete}) => {
   return <StyledProductDetails>
   {
-    items.map((item, i)=>
+    items.slice(0).reverse().map((item, i)=>
       <div className='item' key={i}>
         <Link key={i} prefetch route={`/${item.route}/${item.id}`}>
           <a>
