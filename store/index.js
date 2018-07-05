@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import reducer, {initialState} from './reducer'
 
+
 const customMiddleWare = store => next => action => {
   next(action);
 }
