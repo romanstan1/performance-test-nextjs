@@ -9,23 +9,13 @@ import {connect} from 'react-redux'
 import Carousel from '../../components/Carousel'
 import {ShowMore} from '../../components/Buttons/ShowMore'
 import CheckConnection from '../../components/CheckConnection'
+import Drawer from './Drawer'
+import {viewProductPdp, addListings} from './actions'
 
 async function fetchItems(route, start, end) {
   const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="$key"&startAt="${start}"&endAt="${end}"`)
   const data = await res.json()
   return data
-}
-
-const addListings = (data, type) => {
-  return dispatch => dispatch({
-    type, payload: Object.values(data)
-  })
-}
-const viewProductPdp = (item) => {
-  return dispatch => dispatch({
-    type: 'VIEW_PRODUCT_PDP',
-    payload: item
-  })
 }
 
 class ProductListing extends Component {
@@ -47,9 +37,18 @@ class ProductListing extends Component {
     dispatch(addListings(data, 'ADD_MORE_LISTINGS'))
   }
 
+  state = {
+    whichDrawer: null,
+    drawerOpen: false,
+  }
+
   handleProductClick = (route, item) => {
     this.props.dispatch(viewProductPdp(item))
     Router.pushRoute(`/${route}/${item.id}`)
+  }
+
+  toggleDrawer = (bool, drawer) => () => {
+    this.setState({drawerOpen: bool, whichDrawer: drawer})
   }
 
   render() {
@@ -68,10 +67,16 @@ class ProductListing extends Component {
               <h2>All {route}</h2>
               <h3>Showing {(page)*20} of {route === 'sunglasses'? 65 : 599}</h3>
               <div className='filters'>
-                <div>Filters</div>
-                <div>Sort by</div>
+                <div onClick={this.toggleDrawer(true, 'filters')}>Filters</div>
+                <div onClick={this.toggleDrawer(true, 'sortBy' )}>Sort by</div>
               </div>
-            </Fragment> : null
+              <Drawer
+                toggleDrawer={this.toggleDrawer}
+                open={this.state.drawerOpen}
+                whichDrawer={this.state.whichDrawer}
+              />
+            </Fragment>
+          : null
           }
           {
             data.length? data.map((item, i) =>

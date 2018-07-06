@@ -17,6 +17,7 @@
     "isomorphic-fetch": "^2.2.1",
     "next": "latest",
     "next-routes": "^1.4.2",
+    "quagga": "^0.12.1",
     "react": "16.4.0",
     "react-dom": "16.4.0",
     "react-lazy-load": "^3.0.13",

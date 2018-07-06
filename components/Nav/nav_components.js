@@ -19,7 +19,9 @@ export const SideList = () =>
       <StyledMenuItem>Sunglasses</StyledMenuItem>
     </Link>
     <Divider />
-    <StyledMenuItem>Contact lenses</StyledMenuItem>
+    <Link prefetch route="/contacts">
+      <StyledMenuItem>Contact lenses</StyledMenuItem>
+    </Link>
     <Divider />
     <StyledMenuItem>Accessories</StyledMenuItem>
     <Divider />

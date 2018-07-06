@@ -11,8 +11,7 @@ const StyledDelete = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 10px;
-`
+`;
 
 export default () =>
   <StyledDelete>

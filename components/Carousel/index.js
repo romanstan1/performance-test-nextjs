@@ -116,7 +116,7 @@ class Carousel extends Component {
                 key={item}
                 >
                 <LazyLoad
-                  offsetVertical={450}
+                  offsetVertical={1200}
                   offsetHorizontal={!!route && level === '0' ? 0 : 1000}
                     // if route is true means its the plp page // ie prefetch quicker on pdp and search
                 >

@@ -9,10 +9,10 @@ import {Header, StyledButtonBase, Navbar, Heading, NotificationBubble} from './s
 class Nav extends React.Component {
 
   state = {
-    left: false,
+    left: false
   }
   toggleNavDrawer = (open) => () => {
-    this.setState({left: open, right: false})
+    this.setState({left: open})
   }
   toggleSearchDrawer = (open) => () => {
     this.props.dispatch({type: "OPEN_SEARCH_DRAWER", payload: open})

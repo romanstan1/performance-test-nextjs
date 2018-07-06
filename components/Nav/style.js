@@ -10,6 +10,7 @@ export const Header = styled.header`
   grid-template-columns: 48px 48px auto 48px 48px;
   align-items: center;
   padding: 8px;
+  position: relative;
 `;
 
 export const StyledButtonBase = styled.div`

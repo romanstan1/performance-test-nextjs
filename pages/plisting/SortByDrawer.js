@@ -1,8 +1,7 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, Component} from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import {SideList} from './nav_components'
-
-export default class NavigationDrawer extends React.Component {
+// import {SideList} from './nav_components'
+export default class SortByDrawer extends Component {
 
   render() {
     const {open, toggleDrawer} = this.props
@@ -11,6 +10,7 @@ export default class NavigationDrawer extends React.Component {
         open={open}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
+        anchor="right"
         >
         <div
           tabIndex={0}
@@ -18,7 +18,16 @@ export default class NavigationDrawer extends React.Component {
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
           >
-            <SideList/>
+            <div>
+              Sort By Drawer <br/><br/><br/>
+              Stuff <br/>
+              Stuff <br/>
+              Stuff <br/>
+              Stuff <br/>
+              Stuff <br/>
+              Stuff <br/>
+              Stuff <br/>
+            </div>
           </div>
       </SwipeableDrawer>
     )

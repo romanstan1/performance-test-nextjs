@@ -12,6 +12,15 @@ const StyledProductDetails = styled.div`
   background: white;
   padding: 0px 10px 0 10px;
   width: 100%;
+  > h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: ${darkgrey};
+    padding: 15px 20px;
+    margin: 5px;
+    text-align: center;
+    border-bottom: 1px solid ${lightgrey};
+  }
   div.item {
     position: relative;
     display: flex;
@@ -84,8 +93,9 @@ const StyledProductDetails = styled.div`
   }
 `;
 
-export default ({items, handleDelete}) => {
-  return <StyledProductDetails>
+export default ({items, handleDelete, isBasket}) =>
+<StyledProductDetails>
+  { items.length? isBasket ?<h3>Your basket </h3> : <h3>Recently viewed </h3> : null}
   {
     items.slice(0).reverse().map((item, i)=>
       <div className='item' key={i}>
@@ -114,4 +124,4 @@ export default ({items, handleDelete}) => {
       </div>
     )
   }
-</StyledProductDetails>}
+</StyledProductDetails>

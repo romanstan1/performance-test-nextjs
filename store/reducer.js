@@ -10,7 +10,8 @@ const initialState = {
   },
   searchDrawerOpen: false,
   user: null,
-  recent: null
+  recent: null,
+  scanning: false
 }
 
 export default (state = initialState, action) => {
@@ -103,6 +104,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         basket: basket
+      }
+    }
+    case "TOGGLE_SCANNING": {
+      return {
+        ...state,
+        scanning: !state.scanning
       }
     }
     default:

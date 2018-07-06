@@ -114,7 +114,6 @@ class ProductDisplay extends Component {
         {
           recent?
           <RecentlyViewed>
-            <h3>Recently Viewed Items</h3>
             <ProductDetailList items={recent}/>
           </RecentlyViewed>
           :null

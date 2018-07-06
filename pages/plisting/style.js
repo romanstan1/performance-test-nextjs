@@ -1,6 +1,22 @@
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey} from '../../colors'
 import styled from 'styled-components'
 
+export const DrawerContentStyle = styled.div`
+  width: 100vw;
+  display: block;
+`
+export const Header = styled.div`
+  width: 100%;
+  background: ${lightgrey};
+  text-align: center;
+
+  background: #fff;
+  display: grid;
+  grid-template-columns: 48px auto 48px;
+  align-items: center;
+  padding: 8px;
+`
+
 export const StyledPLP = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,6 +61,10 @@ export const StyledPLP = styled.div`
       font-size: 13px;
       color: ${mediumgrey};
       border: 1px solid ${lightgrey};
+      &:hover {
+        border: 1px solid ${lightgrey};
+        background: ${lightgrey};
+      }
     }
   }
   div.view-it {
