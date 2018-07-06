@@ -1,3 +1,5 @@
+import {lookUpProduct} from './modules'
+
 const initialState = {
   basket: [],
   data:[],
@@ -11,7 +13,8 @@ const initialState = {
   searchDrawerOpen: false,
   user: null,
   recent: null,
-  scanning: false
+  scanning: false,
+  contactLense: null
 }
 
 export default (state = initialState, action) => {
@@ -110,6 +113,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         scanning: !state.scanning
+      }
+    }
+    case "DETECTED_BARCODE": {
+      const product = lookUpProduct(action.payload.code)
+      return {
+        ...state,
+        contactLense: product
       }
     }
     default:

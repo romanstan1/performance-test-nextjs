@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import Quagga from 'quagga';
-import {toggleScanning} from '../actions'
+import {toggleScanning, detectedBarcode} from '../actions'
 import {connect} from 'react-redux'
-
+import {CameraWrapper} from './style'
 
 class Scanner extends Component {
 
+  state = {
+    count:0
+  }
+
   componentDidMount() {
     var decoder = 'code_128_reader'
-    // if(this.props.scanPrescription) {
-    //   decoder = 'ean_reader'
-    // } else {
-    //   decoder = 'code_128_reader'
-    // }
 
     Quagga.init({
         inputStream: {
@@ -51,42 +50,31 @@ class Scanner extends Component {
     this.props.dispatch(toggleScanning())
   }
 
-  rerouteToProduct = () => {
-    Quagga.stop()
-    Quagga.offDetected(this.onDetected)
-    // this.props.dispatch(rerouteToProduct())
-  }
-
-  prescriptionScan = () => {
-    Quagga.stop()
-    Quagga.offDetected(this.onDetected)
-    // this.props.dispatch(fakePrescriptionScan(this.props.whichEye))
+  fakeDetect = () => {
+    this.props.dispatch(detectedBarcode('112933002780160460'))
+    this.cancelCamera()
   }
 
   onDetected = (result) => {
-    const {dispatch } = this.props
-    console.log("detected!! :: ", result)
+    const {dispatch} = this.props
+    const {count} = this.state
+    console.log("detected!! :: ", result.codeResult.code, typeof result.codeResult.code)
 
-
-    // if(!!result.codeResult && !!result.codeResult.code && productResult.detectionCount < 3) {
-    //   dispatch(detectedBarcode(result))
-    // } else if ( scanPrescription  && whichEye === 'left' && prescriptionResult.left.detectionCount < 3 ) {
-    //   dispatch(detectedPrescriptionBarcode(result, whichEye))
-    // } else if ( scanPrescription && whichEye === 'right' && prescriptionResult.right.detectionCount < 3 ) {
-    //   dispatch(detectedPrescriptionBarcode(result, whichEye))
-    // }
-
-
+    if(count < 3) this.setState({count: count + 1})
+    else if(count === 3) {
+      this.setState({count: 0})
+      dispatch(detectedBarcode(result.codeResult.code))
+      this.cancelCamera()
+    }
   }
 
   render() {
     return (
-      <div className='camera-wrapper'>
+      <CameraWrapper>
         <div id="interactive" className="viewport"></div>
         <div onClick={this.cancelCamera} className='cancel-button'>Cancel</div>
-        {/* <div onClick={this.rerouteToProduct} className='cancel-button reroute'>ReRoute</div> */}
-        {/* <div onClick={this.prescriptionScan} className='cancel-button scan-pres'>Scan Pres</div> */}
-      </div>
+        <div onClick={this.fakeDetect} className='cancel-button reroute'>ReRoute</div>
+      </CameraWrapper>
     )
   }
 }

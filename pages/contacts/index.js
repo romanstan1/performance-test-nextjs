@@ -8,6 +8,9 @@ import Scanner from './Scanner/Scanner'
 import {toggleScanning} from './actions'
 
 class Contacts extends Component {
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps:', nextProps)
+  }
   handleScan = () => {
     this.props.dispatch(toggleScanning())
   }
@@ -32,4 +35,6 @@ class Contacts extends Component {
     )
   }
 }
-export default connect(state => ({scanning: state.scanning}))(Contacts)
+export default connect(state => (
+  {scanning: state.scanning, contactLense: state.contactLense}
+))(Contacts)
