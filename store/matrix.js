@@ -1,7 +1,6 @@
 export const productMatrix = [
   {
     barcode: '112933002780160460',
-    productUrlLink: 'https://www.specsavers.co.nz/contact-lenses/daily-disposables/easyvision-linarial',
     productName: 'Easyvision Linarial',
     productType: 'Daily Disposables',
     price: 38.50,

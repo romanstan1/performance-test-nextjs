@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
-import {Style, Shipping, RecentlyViewed} from './style'
+import {Style, RecentlyViewed} from './style'
 import CTAButton from '../../components/CTAButton'
+import Shipping from '../../components/Shipping'
 import Radio from '@material-ui/core/Radio';
 import MenuItem from '@material-ui/core/MenuItem';
 import {connect} from 'react-redux'
@@ -103,14 +104,7 @@ class ProductDisplay extends Component {
         }
 
         <br/><br/>
-        <Shipping>
-          <h3>Free shipping and returns on every order</h3>
-          <p>
-            We have a 30-day, hassle-free return or exchange policy as well as a one-year,
-            no scratch guarantee for our lenses;
-            we'll replace your scratched lenses for free within the first 12 months.
-          </p>
-        </Shipping>
+        <Shipping/>
         {
           recent?
           <RecentlyViewed>

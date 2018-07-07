@@ -116,7 +116,7 @@ export default (state = initialState, action) => {
       }
     }
     case "DETECTED_BARCODE": {
-      const product = lookUpProduct(action.payload.code)
+      const product = lookUpProduct(action.payload)
       return {
         ...state,
         contactLense: product

@@ -10,3 +10,9 @@ export const detectedBarcode = (code) => {
     payload: code
   })
 }
+export const addContactToBasket = (product) => {
+  return dispatch => dispatch({
+    type: 'ADD_CONTACT_TO_BASKET',
+    payload: product
+  })
+}

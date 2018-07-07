@@ -58,24 +58,7 @@ export const Style = styled.div`
     color: ${darkgrey};
   }
 `
-export const Shipping = styled.div`
-  padding: 40px 10%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: ${backgroundgrey};
-  text-align: center;
-  h3 {
-    color: ${darkgrey};
-    padding: 20px 0;
-  }
-  p {
-    line-height: 32px;
-    padding: 20px 0;
-    color: ${mediumgrey};
-  }
-`
+
 export const RecentlyViewed = styled.div`
   padding: 0px 0%;
   display: flex;
