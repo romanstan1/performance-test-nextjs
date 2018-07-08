@@ -20,9 +20,12 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case "ADD_TO_BASKET": {
+      console.log('ADD_TO_BASKET FIRED!')
       return {
         ...state,
-        basket: [].concat(state.basket, action.payload)
+        basket: [].concat(state.basket, action.payload),
+        contactLense: null,
+        scanning: false
       }
     }
     case "DELETE_ITEM": {
@@ -112,7 +115,13 @@ export default (state = initialState, action) => {
     case "TOGGLE_SCANNING": {
       return {
         ...state,
-        scanning: !state.scanning
+        scanning: action.payload
+      }
+    }
+    case "CLEAR_CONTACT_LENSE": {
+      return {
+        ...state,
+        contactLense: null
       }
     }
     case "DETECTED_BARCODE": {

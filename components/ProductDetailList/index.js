@@ -12,6 +12,7 @@ const StyledProductDetails = styled.div`
   background: white;
   padding: 0px 10px 0 10px;
   width: 100%;
+  overflow: hidden;
   > h3 {
     font-size: 18px;
     font-weight: 600;
@@ -28,7 +29,7 @@ const StyledProductDetails = styled.div`
     align-items: center;
     margin: 5px;
     border-bottom: 1px solid ${lightgrey};
-    a {
+    a, div.contactLenseItem {
       display: block;
       width: 100%;
       position: relative;
@@ -44,12 +45,29 @@ const StyledProductDetails = styled.div`
     div.text {
       width: 35%;
       display: inline-flex;
-      h4 {
+      flex-direction: column;
+      > h4 {
         display: block;
         text-align: left;
         font-size: 15px;
         padding: 10px 0;
         color: ${darkgrey};
+      }
+      h5 {
+        font-weight: 400;
+        padding: 10px 0;
+      }
+      div.prescriptions {
+        display: flex;
+        width: 100%;
+        padding-top: 10px;
+        p {
+          text-indent: 0;
+          padding-right: 5px;
+          &:nth-of-type(2n) {
+            padding-right: 10px;
+          }
+        }
       }
     }
     p {
@@ -99,17 +117,39 @@ export default ({items, handleDelete, isBasket}) =>
   {
     items.slice(0).reverse().map((item, i)=>
       <div className='item' key={i}>
-        <Link key={i} prefetch route={`/${item.route}/${item.id}`}>
-          <a>
+        {
+          item.productCategory === 'frames'?
+          <Link key={i} prefetch route={`/${item.route}/${item.id}`}>
+            <a>
+              <div className='image'>
+                <img src={item.urls[0]} alt=""/>
+              </div>
+              <div className='text'>
+                <h4>{item.brand}</h4>
+              </div>
+              <div className="price">£{item.price}</div>
+            </a>
+          </Link>
+          :
+          <div className='contactLenseItem'>
             <div className='image'>
-              <img src={item.urls[0]} alt=""/>
+              <img src={item.productImageUrl} alt=""/>
             </div>
             <div className='text'>
-              <h4>{item.brand}</h4>
+              <h4>{item.productName}</h4>
+              <h5>{item.productType}</h5>
+              <div className='prescriptions'>
+                <p>BC</p>
+                <p>{item.prescriptions.bc}</p>
+                <p>DIA</p>
+                <p>{item.prescriptions.dia}</p>
+                <p>SPH</p>
+                <p>{item.prescriptions.pwr}</p>
+              </div>
             </div>
             <div className="price">£{item.price}</div>
-          </a>
-        </Link>
+          </div>
+        }
         {
           handleDelete?
           <div className='remove'>

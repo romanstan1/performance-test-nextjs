@@ -6,27 +6,25 @@ import {HeroBlock} from '../../components/HeroBlock';
 import {StyledContacts} from './style';
 import Scanner from './Scanner'
 import ContactPDP from './ContactPDP'
-import {toggleScanning, addContactToBasket} from './actions'
+import {toggleScanning, addToBasket, clearContactLense} from './actions'
+import { Link, Router } from '../../routes'
+import * as firebase from 'firebase'
 
 class Contacts extends Component {
-  componentWillReceiveProps(nextProps) {
-    console.log('nextProps:', nextProps)
-  }
   handleScan = () => {
-    this.props.dispatch(toggleScanning())
+    this.props.dispatch(toggleScanning(true))
+  }
+  componentWillUnmount() {
+    this.props.dispatch(clearContactLense())
   }
 
   handleAddToBasket = () => {
-    // console.log('handleAddToBasket!: ', this.props.contactLense)
+    const {contactLense, dispatch, user} = this.props
+    Router.pushRoute('/basket')
+    dispatch(addToBasket({...contactLense, productCategory: 'contacts'}))
 
-    const {contactLense, dispatch} = this.props
-    dispatch(addContactToBasket(contactLense))
-
-
-    // dispatch(addToBasket({...product, route}))
-    // const database = firebase.database();
-    // // if (user) database.ref('users/' + user + "/basket").push().set({...product, route})
-    // Router.pushRoute('/basket')
+    const database = firebase.database();
+    if (user) database.ref('users/' + user + "/basket").push().set({...contactLense,  productCategory: 'contacts'})
   }
 
   render() {
@@ -54,5 +52,9 @@ class Contacts extends Component {
   }
 }
 export default connect(state => (
-  {scanning: state.scanning, contactLense: state.contactLense}
+  {
+    scanning: state.scanning,
+    contactLense: state.contactLense,
+    user: state.user
+  }
 ))(Contacts)

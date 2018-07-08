@@ -79,9 +79,9 @@ class ProductDisplay extends Component {
 
   handleAddToBasket = () => {
     const {product, dispatch, user, route} = this.props
-    dispatch(addToBasket({...product, route}))
+    dispatch(addToBasket({...product, route, productCategory: 'frames'}))
     const database = firebase.database();
-    if (user) database.ref('users/' + user + "/basket").push().set({...product, route})
+    if (user) database.ref('users/' + user + "/basket").push().set({...product, route,  productCategory: 'frames'})
     Router.pushRoute('/basket')
   }
 

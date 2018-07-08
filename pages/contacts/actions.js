@@ -1,7 +1,8 @@
 
-export const toggleScanning = (item) => {
+export const toggleScanning = (bool) => {
   return dispatch => dispatch({
-    type: 'TOGGLE_SCANNING'
+    type: 'TOGGLE_SCANNING',
+    payload: bool
   })
 }
 export const detectedBarcode = (code) => {
@@ -10,9 +11,14 @@ export const detectedBarcode = (code) => {
     payload: code
   })
 }
-export const addContactToBasket = (product) => {
+export const addToBasket = (product) => {
   return dispatch => dispatch({
-    type: 'ADD_CONTACT_TO_BASKET',
+    type: 'ADD_TO_BASKET',
     payload: product
+  })
+}
+export const clearContactLense = (product) => {
+  return dispatch => dispatch({
+    type: 'CLEAR_CONTACT_LENSE'
   })
 }

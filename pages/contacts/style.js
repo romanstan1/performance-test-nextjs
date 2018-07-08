@@ -15,7 +15,6 @@ export const StyledContactPDP = styled.div`
   background: white;
 `;
 
-
 export const ProductDetails = styled.div`
   display: flex;
   justify-content: center;
