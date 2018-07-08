@@ -118,19 +118,7 @@ export default ({items, handleDelete, isBasket}) =>
     items.slice(0).reverse().map((item, i)=>
       <div className='item' key={i}>
         {
-          item.productCategory === 'frames'?
-          <Link key={i} prefetch route={`/${item.route}/${item.id}`}>
-            <a>
-              <div className='image'>
-                <img src={item.urls[0]} alt=""/>
-              </div>
-              <div className='text'>
-                <h4>{item.brand}</h4>
-              </div>
-              <div className="price">£{item.price}</div>
-            </a>
-          </Link>
-          :
+          item.productCategory === 'contacts'?
           <div className='contactLenseItem'>
             <div className='image'>
               <img src={item.productImageUrl} alt=""/>
@@ -149,6 +137,18 @@ export default ({items, handleDelete, isBasket}) =>
             </div>
             <div className="price">£{item.price}</div>
           </div>
+          :
+          <Link key={i} prefetch route={`/${item.route}/${item.id}`}>
+            <a>
+              <div className='image'>
+                <img src={item.urls[0]} alt=""/>
+              </div>
+              <div className='text'>
+                <h4>{item.brand}</h4>
+              </div>
+              <div className="price">£{item.price}</div>
+            </a>
+          </Link>
         }
         {
           handleDelete?

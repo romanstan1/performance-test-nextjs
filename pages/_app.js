@@ -34,7 +34,7 @@ class MyApp extends App {
         const userDatabase = database.child(user.uid + '/basket/');
         userDatabase.on('value', snapshot => {
           const basketData = snapshot.val()
-          console.log('usersBasket', basketData)
+          // console.log('usersBasket', basketData)
           this.props.reduxStore.dispatch(setNewBasket(basketData))
         })
       } else {

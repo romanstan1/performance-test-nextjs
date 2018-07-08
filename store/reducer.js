@@ -20,7 +20,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case "ADD_TO_BASKET": {
-      console.log('ADD_TO_BASKET FIRED!')
       return {
         ...state,
         basket: [].concat(state.basket, action.payload),
@@ -106,10 +105,11 @@ export default (state = initialState, action) => {
       }
     }
     case "SET_NEW_BASKET": {
-      const basket = Object.entries(action.payload).map(pair => ({...pair[1], uuid: pair[0]}))
+      let basket = []
+      if(action.payload) basket = Object.entries(action.payload).map(pair => ({...pair[1], uuid: pair[0]}))
       return {
         ...state,
-        basket: basket
+        basket
       }
     }
     case "TOGGLE_SCANNING": {
