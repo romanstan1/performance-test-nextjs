@@ -1,14 +1,14 @@
 {
-  "name": "Performance Ecommerce Demo",
-  "short_name": "P.E. Demo",
+  "name": "Performance Ecomm Demo",
+  "short_name": "Ecomm Demo",
   "background_color": "#FFFFFF",
-  "theme_color": "#ff6600",
+  "theme_color": "#000",
   "description": "Ecomm app built using Next.js",
   "display": "standalone",
-  "start_url": ".",
+  "start_url": "/",
   "icons": [
     {
-      "src": "static/icons.png",
+      "src": "icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }

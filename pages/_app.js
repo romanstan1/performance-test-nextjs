@@ -44,7 +44,7 @@ class MyApp extends App {
 
     // if ('serviceWorker' in navigator) {
     //   navigator.serviceWorker
-    //     .register('/service-worker.js')
+    //     .register('/sw.js')
     //     .then(registration => {
     //       console.log('service worker registration successful')
     //     })
