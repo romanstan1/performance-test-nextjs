@@ -48,6 +48,13 @@ injectGlobal`
   body {
     background-color: ${backgroundgrey};
     max-width: 510px;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
   a {
     text-decoration: none;

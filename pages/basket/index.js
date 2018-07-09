@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import InfoBox from '../../components/InfoBox';
 import CTAButton from '../../components/CTAButton';
 import Nav from '../../components/Nav';
+import Footer from '../../components/Footer';
 import MenuItem from '@material-ui/core/MenuItem';
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
@@ -37,6 +38,7 @@ class Basket extends Component {
         </HeroBlock>
         <ProductDetailList items={basket} handleDelete={this.handleDelete} isBasket={true}/>
         <InfoBox/>
+        <Footer/>
       </div>
     )
   }

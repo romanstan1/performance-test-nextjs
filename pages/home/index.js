@@ -42,11 +42,14 @@ const StyledHome = styled.div`
     display: block;
     max-width:510px;
     max-height:422.06896551px;
+    border-width: 0px;
     img {
+      font-size: 0;
       min-height: 200px;
       display: block;
       width: 100%;
-      height: auto;
+      ${'' /* height: auto; */}
+      height: 100%;
       transition: opacity 0.3s;
       opacity: 1 !important;
       &.image-loaded {
@@ -54,7 +57,7 @@ const StyledHome = styled.div`
       }
     }
   }
-`
+`;
 
 export default class Home extends Component {
   render() {

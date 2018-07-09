@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Component, Fragment} from "react";
 import styled from 'styled-components'
 import {lightgrey, mediumgrey, darkgrey, backgroundgrey} from '../../colors'
 
@@ -62,17 +62,31 @@ const StyledFooter = styled.footer`
   }
 `;
 
-export default () =>
-  <StyledFooter>
-    <div className="divider footer"/>
-    <h3>Sign up to our newsletter</h3>
-    <input type="text" placeholder="Enter email address"/>
-    <h3>Get in touch!</h3>
-    <h4>We’re available by phone (0203 567 9200)<br/> and chat every day, 9 a.m – 9 p.m.</h4>
-    <div className="divider"/>
-    <div className='content'>
-      <span>Terms and conditions</span>
-      <span>Privacy </span>
-      <span>Cookie policy</span>
-    </div>
-  </StyledFooter>
+function launchFullScreen(element) {
+  if(element.requestFullScreen) element.requestFullScreen();
+  else if(element.mozRequestFullScreen) element.mozRequestFullScreen();
+  else if(element.webkitRequestFullScreen) element.webkitRequestFullScreen();
+}
+
+export default class Footer extends Component {
+  handleClick = (e) => {
+    launchFullScreen(document.documentElement)
+  }
+  render() {
+    return (
+      <StyledFooter>
+        <div className="divider footer"/>
+        <h3>Sign up to our newsletter</h3>
+        <input type="text" placeholder="Enter email address"/>
+        <h3>Get in touch!</h3>
+        <h4>We’re available by phone (0203 567 9200) and chat every day, 9 a.m – 9 p.m.</h4>
+        <div className="divider"/>
+        <div className='content'>
+          <span>Terms and conditions</span>
+          <span>Privacy </span>
+          <span onClick={this.handleClick}>Cookie policy</span>
+        </div>
+      </StyledFooter>
+    )
+  }
+}
