@@ -10,28 +10,40 @@ import Carousel from '../../../components/Carousel'
 import {MicrophoneIcon, BackwardsArrowIcon, Spinner} from '../nav_components'
 import {StyledButtonBase} from '../style'
 import {showMoreSearchItems} from './actions'
-import {StyledSearchHeader, StyledSearchResults, StyledShowingResultsBar} from './search_style'
+import {StyledSearchHeader, StyledSearchResults, StyledShowingResultsBar, StyledHintText} from './search_style'
 
-const Results = ({items, route, toggleDrawer, resultsShown, showMoreItems}) =>
-  <StyledSearchResults>
+const Results = ({items, route, toggleDrawer, resultsShown, showMoreItems}) => {
+  console.log('items:', items)
+  return <StyledSearchResults>
     {
       items.slice(0, resultsShown).map((item, i) =>
-        <span key={item.id}>
-          <Carousel key={item.id} id={item.id} images={item.urls} brand={item.brand} price={item.price} route={route}/>
-        </span>
-      )
-    }
-    {
-      resultsShown === items.length || items.length === 0?
-      null :
-      <Fragment>
-        <br/><br/><br/>
-        <ShowMore onClick={showMoreItems}>
-          Show More
-        </ShowMore>
-      </Fragment>
-    }
-  </StyledSearchResults>
+      <span key={item.id}>
+        <Carousel key={item.id} id={item.id} images={item.urls} brand={item.brand} price={item.price} route={route}/>
+      </span>
+    )
+  }
+  {
+    items.length === 0?
+    <StyledHintText>
+      <span className='title'> Try </span> <br/>
+      <span>Colour: </span><p> "red sunglasses"</p> <br/>
+      <span>Brand: </span><p> "Converse sunglasses" </p> <br/>
+      <span>Price: </span><p> "over/under £80 sunglasses" </p> <br/>
+    </StyledHintText> : null
+  }
+  {
+    resultsShown === items.length || items.length === 0? null
+    :
+    <Fragment>
+      <br/><br/><br/>
+      <ShowMore onClick={showMoreItems}>
+        Show More
+      </ShowMore>
+    </Fragment>
+  }
+</StyledSearchResults>
+}
+
 
 
 const Header = ({toggleDrawer, toggleVoiceModal, searchQuery, handleInput }) =>

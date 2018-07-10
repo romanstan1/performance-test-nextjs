@@ -25,6 +25,31 @@ export const StyledSearchHeader = styled.div`
   }
 `;
 
+export const StyledHintText = styled.div`
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  padding: 14px 12px 14px 24px;
+  margin: 20px;
+  border-radius: 7px;
+  background: ${backgroundgrey};
+  color: ${darkgrey};
+  font-size: 14px;
+  line-height: 35px;
+  position: relative;
+  p {
+    display: inline-block;
+    text-indent: 10px;
+  }
+  span {
+    display: inline-block;
+    &.title {
+      font-weight: 600;
+
+    }
+  }
+`;
+
 export const StyledSearchResults = styled.div`
   width: 100vw;
   min-width: 250px;

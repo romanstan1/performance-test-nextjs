@@ -19,6 +19,10 @@ export default class MyDocument extends Document {
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <link rel="manifest" href="static/manifest.json" />
 					<link rel="icon" href="static/icon.png" />
+
+          <meta name="mobile-web-app-capable" content="yes"/>
+          <meta name="apple-mobile-web-app-capable" content="yes"/>
+          <meta name="theme-color" content="#ffffff"/>
           {this.props.styleTags}
         </Head>
         <body>
