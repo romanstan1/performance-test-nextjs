@@ -13,7 +13,6 @@ import {showMoreSearchItems} from './actions'
 import {StyledSearchHeader, StyledSearchResults, StyledShowingResultsBar, StyledHintText} from './search_style'
 
 const Results = ({items, route, toggleDrawer, resultsShown, showMoreItems}) => {
-  console.log('items:', items)
   return <StyledSearchResults>
     {
       items.slice(0, resultsShown).map((item, i) =>
