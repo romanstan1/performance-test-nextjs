@@ -1,6 +1,8 @@
-# This project was bootstrapped with Create Next app
+# Performance Project
 
-## It is a Server Side Rendered Ecommerce demo app build using Next Js, and PWA
+## Bootstrapped with Create Next app
+
+## This is a Server Side Rendered Ecommerce demo app build using Next Js, and PWA
 
 Next js provides SSR, code splitting and prefetching by default. It is SSR framework for React.
 
