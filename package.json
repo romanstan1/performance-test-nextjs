@@ -21,6 +21,7 @@
     "react": "16.4.0",
     "react-dom": "16.4.0",
     "react-lazy-load": "^3.0.13",
+    "react-motion": "^0.5.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-speech-recognition": "^1.0.6",

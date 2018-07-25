@@ -14,6 +14,7 @@ import { Link, Router } from '../../routes'
 import CheckConnection from '../../components/CheckConnection'
 import * as firebase from 'firebase'
 import ProductDetailList from '../../components/ProductDetailList';
+import {Motion, spring} from 'react-motion';
 
 async function fetchItem(route, id) {
   const res = await fetch(`https://specsavers-images.firebaseio.com/${route}.json?orderBy="id"&equalTo="${id}"`)
@@ -45,24 +46,20 @@ class ProductDisplay extends Component {
   addToRecentlyViewed = (user) => {
     const database = firebase.database().ref('users/' + user + "/recent");
     const {product, dispatch, route} = this.props
-
     database.once('value', snapshot => {
       const count = snapshot.numChildren()
       if(count) {
         const originalItems = Object.values(snapshot.val())
         dispatch(updateRecentlyViewed(originalItems))
         const isUnique = !originalItems.some(item => item.id === product.id)
-
         let newItems = [].concat(originalItems)
         if(isUnique) newItems = [].concat(newItems, {...product, route})
         newItems = newItems.slice(-3)
         database.set(newItems)
-
       } else {
         database.push().update({...product, route})
       }
     })
-
   }
 
   componentDidMount() {
@@ -71,7 +68,6 @@ class ProductDisplay extends Component {
       this.addToRecentlyViewed(this.props.user)
     }
   }
-
 
   handleChange = e => {
     this.setState({ color: e.target.value })
@@ -83,6 +79,7 @@ class ProductDisplay extends Component {
     const database = firebase.database();
     if (user) database.ref('users/' + user + "/basket").push().set({...product, route,  productCategory: 'frames'})
     Router.pushRoute('/basket')
+    window.navigator.vibrate([200]);
   }
 
   render() {
@@ -95,6 +92,11 @@ class ProductDisplay extends Component {
           <Fragment>
             <Carousel id={product.id} images={product.urls} brand={product.brand} price={product.price}/>
             <br/><br/>
+
+            <Motion defaultStyle={{x: 0}} style={{x: spring(10)}}>
+              {value => <div>{value.x}</div>}
+            </Motion>
+
             <CTAButton onClick={this.handleAddToBasket}>
               Add To Basket
             </CTAButton>
